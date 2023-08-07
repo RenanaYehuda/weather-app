@@ -1,16 +1,29 @@
-import { Typography } from "@mui/material";
-import { auto } from "@popperjs/core";
+import { AppBar, Toolbar, Typography } from "@mui/material";
+import { Box, Container, maxHeight } from "@mui/system";
 import React from "react";
 
 const Header = () => {
   return (
-    <div>
-      <nav>
-        <Typography variant="h5" gutterBottom sx={{padding: 4, color: "white"}}>
-          ראשי
-        </Typography>
-      </nav>
-    </div>
+    <AppBar position="sticky" sx={{ height: "xl" }}>
+      <Container maxWidth="xl">
+        <Toolbar disableGutters>
+          <Typography
+            variant="h5"
+            gutterBottom
+            sx={{ padding: 2, color: "white" }}
+          >
+            ראשי
+          </Typography>
+          <Typography
+            variant="h5"
+            gutterBottom
+            sx={{ padding: 2, color: "white" }}
+          >
+            היסטוריה - {}
+          </Typography>
+        </Toolbar>
+      </Container>
+    </AppBar>
   );
 };
 
