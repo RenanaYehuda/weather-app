@@ -4,5 +4,11 @@ body {
   background-size: cover;
   background-position: center;
   min-height: 100vh;
+  color: black;
+}
+
+nav {
+  min-height: 80px;
+  background: rgb(10, 10, 37);
 }
 

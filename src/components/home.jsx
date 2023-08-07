@@ -18,6 +18,7 @@ import { API_URL, doApiGet } from "../api/api";
 import { useForm } from "react-hook-form";
 import dataCountry from "../data/apiRequest.json";
 import { Padding } from "@mui/icons-material";
+import Header from "./header";
 
 const Home = () => {
   const days = [
