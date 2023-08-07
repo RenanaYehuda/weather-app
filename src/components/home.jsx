@@ -44,7 +44,7 @@ const Home = () => {
 
   const { handleSubmit } = useForm();
 
-  let searchs = lastSearch;
+ 
 
   const onSubForm = () => {
     createLastSearch();
@@ -53,12 +53,15 @@ const Home = () => {
   };
 
   const createLastSearch = () => {
-    if (lastSearch.length < process.env.MAX_SEARCH) {
+    let searchs = lastSearch;
+    if (lastSearch.length < 5) {
+      
       searchs.unshift(city);
     } else {
       searchs.pop();
       searchs.unshift(city);
     }
+    console.log(searchs);
     setLastSearch(searchs);
   };
 

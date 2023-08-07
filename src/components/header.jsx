@@ -1,10 +1,17 @@
+import React, { useContext } from "react";
 import { AppBar, Toolbar, Typography } from "@mui/material";
 import { Container } from "@mui/system";
-import React from "react";
+
+import { Context } from "../contextProvider";
+import { useEffect } from "react";
 
 const Header = () => {
+  const { lastSearch } = useContext(Context);
+
+  useEffect(() => {}, [lastSearch]);
+
   return (
-    <AppBar position="sticky" sx={{ height: "xl" }}>
+    <AppBar position="sticky" sx={{ height: "xl", backgroundColor: "#120E3E" }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Typography
@@ -19,7 +26,7 @@ const Header = () => {
             gutterBottom
             sx={{ padding: 2, color: "white" }}
           >
-            היסטוריה - {}
+            היסטוריה - {lastSearch.length}
           </Typography>
         </Toolbar>
       </Container>
