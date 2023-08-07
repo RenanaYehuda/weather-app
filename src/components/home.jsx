@@ -18,6 +18,7 @@ import { API_URL, doApiGet } from "../api/api";
 import { useForm } from "react-hook-form";
 import dataCountry from "../data/apiRequest.json";
 import { Padding } from "@mui/icons-material";
+import env from "react-dotenv";
 
 const Home = () => {
   const days = [
@@ -27,16 +28,37 @@ const Home = () => {
     "בעוד 4 ימים",
     "בעוד 5 ימים",
   ];
+
   const [isLoading, setIsLoading] = useState(false);
-  const { user, setAllCities, allCities, setWeather, weather } =
-    useContext(Context);
+  const {
+    user,
+    setAllCities,
+    allCities,
+    setWeather,
+    lastSearch,
+    setLastSearch,
+  } = useContext(Context);
 
   const [city, setCity] = useState("Jerusalem");
 
   const { handleSubmit } = useForm();
 
+  let searchs = lastSearch;
+
   const onSubForm = () => {
+    createLastSearch();
+    console.log(lastSearch);
     getCity(city);
+  };
+
+  const createLastSearch = () => {
+    if (lastSearch.length < process.env.MAX_SEARCH) {
+      searchs.unshift(city);
+    } else {
+      searchs.pop();
+      searchs.unshift(city);
+    }
+    setLastSearch(searchs);
   };
 
   const getCity = async (city) => {
@@ -127,28 +149,33 @@ const Home = () => {
               >
                 :Choose country
               </InputLabel>
-              <NativeSelect
-                onChange={(e) => setCity(e.target.value)}
-                defaultValue={city}
-                inputProps={{
-                  name: "city",
-                  id: "uncontrolled-native",
-                }}
-                sx={{direction: "ltr"}}
-              >
-                {allCities.map((item, i) => (
-                  <option key={i} value={item.city}>
-                    {item.city}
-                  </option>
-                ))}
-              </NativeSelect>
-              <IconButton aria-label="search" size="large" type="submit">
-                <SearchRoundedIcon />
-              </IconButton>
+              <Box>
+                <IconButton aria-label="search" size="large" type="submit">
+                  <SearchRoundedIcon />
+                </IconButton>
+                <NativeSelect
+                  onChange={(e) => setCity(e.target.value)}
+                  defaultValue={city}
+                  inputProps={{
+                    name: "city",
+                    id: "uncontrolled-native",
+                  }}
+                  sx={{ direction: "ltr", width: 700, marginTop: 4 }}
+                >
+                  {allCities.map((item, i) => (
+                    <option key={i} value={item.city}>
+                      {item.city}
+                    </option>
+                  ))}
+                </NativeSelect>
+              </Box>
             </FormControl>
           </Box>
           <BigWeather city={city} />
-          <Stack direction={"row"} sx={{position: 'absolute', bottom: '-20%'}}>
+          <Stack
+            direction={"row"}
+            sx={{ position: "absolute", bottom: "-20%" }}
+          >
             {days.map((item, i) => (
               <LittleWeather k={i} day={item} />
             ))}
