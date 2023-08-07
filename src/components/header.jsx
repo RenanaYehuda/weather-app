@@ -14,13 +14,7 @@ const Header = () => {
           >
             ראשי
           </Typography>
-          <Typography
-            variant="h5"
-            gutterBottom
-            sx={{ padding: 2, color: "white" }}
-          >
-            היסטוריה - {}
-          </Typography>
+         
         </Toolbar>
       </Container>
     </AppBar>
