@@ -1,5 +1,5 @@
 import { AppBar, Toolbar, Typography } from "@mui/material";
-import { Box, Container, maxHeight } from "@mui/system";
+import { Container } from "@mui/system";
 import React from "react";
 
 const Header = () => {
@@ -14,7 +14,13 @@ const Header = () => {
           >
             ראשי
           </Typography>
-         
+          <Typography
+            variant="h5"
+            gutterBottom
+            sx={{ padding: 2, color: "white" }}
+          >
+            היסטוריה - {}
+          </Typography>
         </Toolbar>
       </Container>
     </AppBar>
