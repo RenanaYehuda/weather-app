@@ -1,0 +1,8 @@
+body {
+  direction: rtl;
+  background-image: linear-gradient(rgba(252, 248, 248, 0.384),rgba(250, 250, 250, 0.377)),url("../public/images/clouds-g84fdf1822_1280.jpg");
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
+}
+
