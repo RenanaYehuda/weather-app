@@ -47,6 +47,7 @@ const Home = () => {
  
 
   const onSubForm = () => {
+    console.log(lastSearch.length);
     createLastSearch();
     console.log(lastSearch);
     getCity(city);
@@ -54,12 +55,12 @@ const Home = () => {
 
   const createLastSearch = () => {
     let searchs = lastSearch;
-    if (lastSearch.length < 5) {
-      
-      searchs.unshift(city);
+    let detailesCity = allCities.filter((item) => (item.city === city))
+    if (searchs.length < 5) {
+      searchs.unshift(detailesCity);
     } else {
       searchs.pop();
-      searchs.unshift(city);
+      searchs.unshift(detailesCity);
     }
     console.log(searchs);
     setLastSearch(searchs);
@@ -181,7 +182,7 @@ const Home = () => {
             sx={{ position: "absolute", bottom: "-20%" }}
           >
             {days.map((item, i) => (
-              <LittleWeather k={i} day={item} />
+              <LittleWeather key={i} k={i} day={item} />
             ))}
           </Stack>
         </Box>

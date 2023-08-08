@@ -1,33 +1,37 @@
 import React, { useContext } from "react";
-import { AppBar, Toolbar, Typography } from "@mui/material";
+import { AppBar, MenuItem, Toolbar, Typography } from "@mui/material";
 import { Container } from "@mui/system";
-
+import { Button, Box, Menu } from "@mui/material";
 import { Context } from "../contextProvider";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
   const { lastSearch } = useContext(Context);
 
+  const nav = useNavigate();
   useEffect(() => {}, [lastSearch]);
 
   return (
     <AppBar position="sticky" sx={{ height: "xl", backgroundColor: "#120E3E" }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <Typography
-            variant="h5"
-            gutterBottom
-            sx={{ padding: 2, color: "white" }}
+          <Button
+            variant="text"
+            size="large"
+            sx={{ color: "white", fontSize: "25px" }}
+            onClick={() => nav("/")}
           >
             ראשי
-          </Typography>
-          <Typography
-            variant="h5"
-            gutterBottom
-            sx={{ padding: 2, color: "white" }}
+          </Button>
+          <Button
+            variant="text"
+            size="large"
+            sx={{ color: "white", fontSize: "25px" }}
+            onClick={() => nav("/history")}
           >
             היסטוריה - {lastSearch.length}
-          </Typography>
+          </Button>
         </Toolbar>
       </Container>
     </AppBar>
