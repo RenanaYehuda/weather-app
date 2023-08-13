@@ -17,11 +17,13 @@ import LittleWeather from "./littleWeather";
 import { API_URL, doApiGet } from "../api/api";
 import { useForm } from "react-hook-form";
 import dataCountry from "../data/apiRequest.json";
-import { Padding } from "@mui/icons-material";
+import { Padding, WheelchairPickup } from "@mui/icons-material";
 import Header from "./header";
 import env from "react-dotenv";
 
 const Home = () => {
+
+  const cities = [  "Amman", "Hargeisa","Jerusalem", "Rome","Kingston"]
   const days = [
     "מחר",
     "בעוד יומיים",
@@ -33,40 +35,49 @@ const Home = () => {
   const [isLoading, setIsLoading] = useState(false);
   const {
     user,
+    city,
+    setCity,
     setAllCities,
     allCities,
+    weather,
     setWeather,
     lastSearch,
     setLastSearch,
   } = useContext(Context);
 
-  const [city, setCity] = useState("Jerusalem");
+  // const [city, setCity] = useState("Jerusalem");
+  // const [changeCity, setChangeCity] = useState("Jerusalem");
 
   const { handleSubmit } = useForm();
 
- 
-
   const onSubForm = () => {
-    console.log(lastSearch.length);
+    // debugger
+    // console.log(changeCity);
+    // setCity(changeCity);
+    console.log(city);
     createLastSearch();
     console.log(lastSearch);
-    getCity(city);
+    getCity();
   };
 
   const createLastSearch = () => {
     let searchs = lastSearch;
-    let detailesCity = allCities.filter((item) => (item.city === city))
-    if (searchs.length < 5) {
-      searchs.unshift(detailesCity);
-    } else {
-      searchs.pop();
-      searchs.unshift(detailesCity);
-    }
-    console.log(searchs);
-    setLastSearch(searchs);
+    let detailesCity = allCities.filter((item) => item.city === city);
+    if (detailesCity) {
+      detailesCity = detailesCity[0];
+      if (searchs.length < 5) {
+        console.log(detailesCity);
+        searchs.unshift(detailesCity);
+      } else {
+        searchs.pop();
+        searchs.unshift(detailesCity);
+      }
+      console.log(searchs);
+      setLastSearch(searchs);
+    } else console.log("City not exsist");
   };
 
-  const getCity = async (city) => {
+  const getCity = async () => {
     console.log(city);
     let url = API_URL + `/cities/${city}`;
     try {
@@ -95,10 +106,18 @@ const Home = () => {
             city.lat == lat_lon.latitude.toFixed(4) &&
             city.lon == lat_lon.longitude.toFixed(4)
         );
-        console.log(city);
-        setWeather(city);
+        if (city) {
+          setWeather(city);
+          console.log("haveeeeee");
+          console.log(weather);
+        } else {
+          setWeather("");
+          console.log("nooooooooo");
+          console.log(weather);
+        }
       }
     } catch (err) {
+      setWeather("");
       console.log(err.message);
       alert("User or password worng, or service down");
     }
@@ -111,7 +130,9 @@ const Home = () => {
         let resp = await doApiGet(url, user);
         if (resp.status == 200) {
           console.log(resp.data);
-          setAllCities(resp.data);
+          let jsonCities = resp.data.filter((item) => cities.includes(item.city))
+          console.log(jsonCities);
+          setAllCities(jsonCities);
           setIsLoading(true);
         }
       } catch (err) {
@@ -124,7 +145,10 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
-    getCity(city);
+  
+      getCity();  
+ 
+    
   }, []);
 
   return (
@@ -176,15 +200,21 @@ const Home = () => {
               </Box>
             </FormControl>
           </Box>
-          <BigWeather city={city} />
-          <Stack
-            direction={"row"}
-            sx={{ position: "absolute", bottom: "-20%" }}
-          >
-            {days.map((item, i) => (
-              <LittleWeather key={i} k={i} day={item} />
-            ))}
-          </Stack>
+          {weather ? (
+            <>
+              <BigWeather />
+              <Stack
+                direction={"row"}
+                sx={{ position: "absolute", bottom: "-20%" }}
+              >
+                {days.map((item, i) => (
+                  <LittleWeather key={i} k={i} day={item} />
+                ))}
+              </Stack>
+            </>
+          ) : (
+            <h3> Weather not exsist</h3>
+          )}
         </Box>
       ) : (
         <CircularProgress
