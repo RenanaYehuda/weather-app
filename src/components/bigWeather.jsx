@@ -2,8 +2,8 @@ import { Box, Card, CardContent, CardMedia } from "@mui/material";
 import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../contextProvider";
 
-const BigWeather = ({ city }) => {
-  const { weather } = useContext(Context);
+const BigWeather = () => {
+  const { city, weather } = useContext(Context);
   const [temp, setTemp] = useState(0);
   const [description, setDescription] = useState("");
   const [image, setImage] = useState("");
@@ -19,7 +19,7 @@ const BigWeather = ({ city }) => {
   };
 
   useEffect(() => {
-    console.log(weather);
+    
     weather &&
       setTemp(
         (
@@ -33,44 +33,42 @@ const BigWeather = ({ city }) => {
 
   return (
     <Box>
-      {weather ? (
-        <Card
+      <Card
+        sx={{
+          width: 900,
+          height: 600,
+          marginTop: 8,
+          display: "flex",
+          border: 3,
+          borderRadius: 25,
+          backgroundColor: `rgba(252, 248, 248, 0.384)`,
+          position: "relative",
+        }}
+      >
+        <Box sx={{ display: "flex", flexDirection: "column" }}>
+          <CardContent
+            cols={6}
+            sx={{ flex: "1 0 auto", marginTop: 24, marginRight: 24 }}
+          >
+            <h3>היום</h3>
+            <h2>{city}</h2>
+            <p>טמפרטורה: &#8451; {temp}</p>
+            <p>{description}</p>
+          </CardContent>
+        </Box>
+        <CardMedia
+          cols={3}
+          component="img"
           sx={{
-            width: 900,
-            height: 600,
-            marginTop: 8,
-            display: "flex",
-            border: 3,
-            borderRadius: 25,
-            backgroundColor: `rgba(252, 248, 248, 0.384)`,
-            position: 'relative'
+            width: 250,
+            height: 195,
+            alignItems: "center",
+            margin: "auto",
           }}
-        >
-          <Box sx={{ display: "flex", flexDirection: "column" }}>
-            <CardContent
-              cols={6}
-              sx={{ flex: "1 0 auto", marginTop: 24, marginRight: 24 }}
-            >
-              <h3>היום</h3>
-              <h2>{city}</h2>
-              <p>טמפרטורה: &#8451; {temp}</p>
-              <p>{description}</p>
-            </CardContent>
-          </Box>
-          <CardMedia
-            cols={3}
-            component="img"
-            sx={{
-              width: 250,
-              height: 195,
-              alignItems: "center",
-              margin: "auto",
-            }}
-            image={image}
-            alt="Live from space album cover"
-          />
-        </Card>
-      ) : null}
+          image={image}
+          alt="Live from space album cover"
+        />
+      </Card>
     </Box>
   );
 };

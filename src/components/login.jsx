@@ -5,9 +5,10 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { useForm } from "react-hook-form";
-import { API_URL, doApiMethod } from "../api/api";
 import { useNavigate } from "react-router-dom";
 import { Context } from "../contextProvider";
+import axios from "axios";
+const API_URL = "http://localhost:3001";
 
 const Login = () => {
 
@@ -28,7 +29,15 @@ const Login = () => {
   const doApiForm = async (bodyData) => {
     let url = API_URL + "/login";
     try {
-      let resp = await doApiMethod(url, "POST", bodyData);
+      let resp = await axios({
+        url: url,
+        method: 'post',
+        data: bodyData,
+        headers: {
+          user_name: bodyData.userName,
+          user_mispar_ishi: bodyData.password,
+        },
+      });
       if (resp.status == 200) {
         localStorage.setItem("user", JSON.stringify(bodyData));
         console.log(resp.data);
