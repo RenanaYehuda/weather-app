@@ -15,7 +15,8 @@ import BigWeather from "./bigWeather";
 import LittleWeather from "./littleWeather";
 import { useForm } from "react-hook-form";
 import dataCountry from "../data/apiRequest.json";
-import { Padding } from "@mui/icons-material";
+import axios from "axios";
+const API_URL = "http://localhost:3001";
 
 const Home = () => {
   const days = [
@@ -27,27 +28,24 @@ const Home = () => {
   ];
 
   const [isLoading, setIsLoading] = useState(false);
-  const { user, setAllCities, allCities, setWeather, weather } =
-    useContext(Context);
-
-  const [city, setCity] = useState("Jerusalem");
+  const {
+    user,
+    city,
+    setCity,
+    setAllCities,
+    allCities,
+    weather,
+    setWeather,
+    lastSearch,
+    setLastSearch,
+  } = useContext(Context);
 
   const { handleSubmit } = useForm();
 
-  let searchs = lastSearch;
-
   const onSubForm = () => {
-    getCity(city);
-  };
-
-  const createLastSearch = () => {
-    if (lastSearch.length < process.env.MAX_SEARCH) {
-      searchs.unshift(city);
-    } else {
-      searchs.pop();
-      searchs.unshift(city);
-    }
-    setLastSearch(searchs);
+    console.log(city);
+    createLastSearch();
+    getCity();
   };
 
   const getCity = async () => {
@@ -195,12 +193,21 @@ const Home = () => {
               </Box>
             </FormControl>
           </Box>
-          <BigWeather city={city} />
-          <Stack direction={"row"} sx={{position: 'absolute', bottom: '-20%'}}>
-            {days.map((item, i) => (
-              <LittleWeather k={i} day={item} />
-            ))}
-          </Stack>
+          {weather ? (
+            <>
+              <BigWeather />
+              <Stack
+                direction={"row"}
+                sx={{ position: "absolute", bottom: "-20%" }}
+              >
+                {days.map((item, i) => (
+                  <LittleWeather key={i} k={i} day={item} />
+                ))}
+              </Stack>
+            </>
+          ) : (
+            <h3> Weather not exsist</h3>
+          )}
         </Box>
       ) : (
         <CircularProgress
