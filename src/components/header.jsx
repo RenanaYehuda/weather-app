@@ -4,16 +4,17 @@ import React from "react";
 
 const Header = () => {
   return (
-    <AppBar position="sticky" sx={{ height: "xl" }}>
+    <AppBar position="sticky" sx={{ height: "xl", backgroundColor: "#120E3E" }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <Typography
-            variant="h5"
-            gutterBottom
-            sx={{ padding: 2, color: "white" }}
+          <Button
+            variant="text"
+            size="large"
+            sx={{ color: "white", fontSize: "25px" }}
+            onClick={() => nav("/")}
           >
             ראשי
-          </Typography>
+          </Button>
          
         </Toolbar>
       </Container>
