@@ -17,7 +17,7 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 const History = () => {
-  const { lastSearch, setCity } = useContext(Context);
+  const { lastSearch, setLastSearch, setCity } = useContext(Context);
   const nav = useNavigate();
 
   const moveToMain = () => {
@@ -27,12 +27,16 @@ const History = () => {
 
   const cancelChoice = () => {
     setCity("Jerusalem");
-    nav("/home");
+  };
+
+  const deleteChoice = (_index) => {
+    setLastSearch(lastSearch.splice(_index - 1));
+    setCity("Jerusalem");
   };
 
   useEffect(() => {
     console.log(lastSearch);
-  });
+  }, [lastSearch]);
 
   return (
     <Container component="main">
@@ -74,18 +78,31 @@ const History = () => {
                         <Button
                           variant="text"
                           sx={{ color: "black" }}
-                          onClick={()=>{moveToMain()}}
+                          onClick={() => {
+                            moveToMain();
+                          }}
                         >
                           הפוך לראשי
                         </Button>
                       ) : (
-                        <Button variant="text" color="error"
-                        onClick={()=>{cancelChoice()}}>
+                        <Button
+                          variant="text"
+                          color="error"
+                          onClick={() => {
+                            cancelChoice();
+                          }}
+                        >
                           ביטול בחירה
                         </Button>
                       )}
                       |
-                      <Button variant="text" color="error">
+                      <Button
+                        variant="text"
+                        color="error"
+                        onClick={() => {
+                          deleteChoice(i);
+                        }}
+                      >
                         מחיקה מההיסטוריה
                       </Button>
                     </TableCell>

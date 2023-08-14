@@ -22,8 +22,6 @@ import Header from "./header";
 import env from "react-dotenv";
 
 const Home = () => {
-
-  const cities = [  "Amman", "Hargeisa","Jerusalem", "Rome","Kingston"]
   const days = [
     "מחר",
     "בעוד יומיים",
@@ -45,36 +43,12 @@ const Home = () => {
     setLastSearch,
   } = useContext(Context);
 
-  // const [city, setCity] = useState("Jerusalem");
-  // const [changeCity, setChangeCity] = useState("Jerusalem");
-
   const { handleSubmit } = useForm();
 
   const onSubForm = () => {
-    // debugger
-    // console.log(changeCity);
-    // setCity(changeCity);
     console.log(city);
     createLastSearch();
-    console.log(lastSearch);
     getCity();
-  };
-
-  const createLastSearch = () => {
-    let searchs = lastSearch;
-    let detailesCity = allCities.filter((item) => item.city === city);
-    if (detailesCity) {
-      detailesCity = detailesCity[0];
-      if (searchs.length < 5) {
-        console.log(detailesCity);
-        searchs.unshift(detailesCity);
-      } else {
-        searchs.pop();
-        searchs.unshift(detailesCity);
-      }
-      console.log(searchs);
-      setLastSearch(searchs);
-    } else console.log("City not exsist");
   };
 
   const getCity = async () => {
@@ -123,6 +97,23 @@ const Home = () => {
     }
   };
 
+  const createLastSearch = () => {
+    let searchs = lastSearch;
+    let detailesCity = allCities.filter((item) => item.city === city);
+    if (detailesCity) {
+      detailesCity = detailesCity[0];
+      if (searchs.length < 5) {
+        console.log(detailesCity);
+        searchs.unshift(detailesCity);
+      } else {
+        searchs.pop();
+        searchs.unshift(detailesCity);
+      }
+      console.log(searchs);
+      setLastSearch(searchs);
+    } else console.log("City not exsist");
+  };
+
   useEffect(() => {
     const getCities = async () => {
       let url = API_URL + "/getAllCities";
@@ -130,9 +121,7 @@ const Home = () => {
         let resp = await doApiGet(url, user);
         if (resp.status == 200) {
           console.log(resp.data);
-          let jsonCities = resp.data.filter((item) => cities.includes(item.city))
-          console.log(jsonCities);
-          setAllCities(jsonCities);
+          setAllCities(resp.data);
           setIsLoading(true);
         }
       } catch (err) {
@@ -145,10 +134,7 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
-  
-      getCity();  
- 
-    
+    getCity();
   }, []);
 
   return (
