@@ -7,19 +7,16 @@ import {
   InputLabel,
   NativeSelect,
   Stack,
-  TextField,
 } from "@mui/material";
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../contextProvider";
 import BigWeather from "./bigWeather";
 import LittleWeather from "./littleWeather";
-import { API_URL, doApiGet } from "../api/api";
 import { useForm } from "react-hook-form";
 import dataCountry from "../data/apiRequest.json";
-import { Padding, WheelchairPickup } from "@mui/icons-material";
-import Header from "./header";
-import env from "react-dotenv";
+import axios from "axios";
+const API_URL = "http://localhost:3001";
 
 const Home = () => {
   const days = [
@@ -55,7 +52,12 @@ const Home = () => {
     console.log(city);
     let url = API_URL + `/cities/${city}`;
     try {
-      let resp = await doApiGet(url, user);
+      let resp = await axios.get(url, {
+        headers: {
+          user_name: user ? user.User_Name : null,
+          user_mispar_ishi: user ? user.Mispar_Ishi : null,
+        },
+      });
       if (resp) {
         console.log(resp.data);
         getWeather(resp.data);
@@ -118,7 +120,12 @@ const Home = () => {
     const getCities = async () => {
       let url = API_URL + "/getAllCities";
       try {
-        let resp = await doApiGet(url, user);
+        let resp = await axios.get(url, {
+          headers: {
+            user_name: user ? user.User_Name : null,
+            user_mispar_ishi: user ? user.Mispar_Ishi : null,
+          },
+        });
         if (resp.status == 200) {
           console.log(resp.data);
           setAllCities(resp.data);
