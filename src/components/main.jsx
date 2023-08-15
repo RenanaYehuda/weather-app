@@ -1,7 +1,8 @@
 import React, { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { API_URL, doApiMethod } from "../api/api";
 import { Context } from "../contextProvider";
+import axios from "axios";
+const API_URL = "http://localhost:3001";
 
 const Main = () => {
   const { setUser } = useContext(Context);
@@ -10,7 +11,15 @@ const Main = () => {
   const login = async (bodyData) => {
     let url = API_URL + "/login";
     try {
-      let resp = await doApiMethod(url, "POST", bodyData);
+      let resp = await axios({
+        url: url,
+        method: 'post',
+        data: bodyData,
+        headers: {
+          user_name: bodyData.userName,
+          user_mispar_ishi: bodyData.password,
+        },
+      });
       if (resp.status == 200) {
         setUser(resp.data);
         nav("/home");
