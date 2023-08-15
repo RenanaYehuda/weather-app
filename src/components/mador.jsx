@@ -1,4 +1,14 @@
-import { Box, Button, Container, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField } from "@mui/material";
+import {
+  Box,
+  Button,
+  Container,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  TextField,
+} from "@mui/material";
 import React from "react";
 import { useContext } from "react";
 import { Context } from "../contextProvider";
@@ -13,16 +23,15 @@ const Mador = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [open, setOpen] = React.useState(false);
 
-    const handleClickOpen = () => {
-      setOpen(true);
-    };
-  
-    const handleClose = () => {
-      setOpen(false);
-    };
-    
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   useEffect(() => {
-  
     const getSoldiers = async () => {
       let url = API_URL + "/getAllSoldiers";
       try {
@@ -48,7 +57,7 @@ const Mador = () => {
     console.log(allSoldiers);
   }, []);
   return (
-    <Container component="main">
+    <Container component="main" >
       {isLoading && (
         <Box
           sx={{
@@ -59,7 +68,7 @@ const Mador = () => {
           }}
         >
           <Button
-          onClick={handleClickOpen}
+            onClick={handleClickOpen}
             variant="outlined"
             size="large"
             sx={{
@@ -72,13 +81,13 @@ const Mador = () => {
           >
             פתיחת חלון
           </Button>
-          <Dialog open={open} onClose={handleClose}>
-        <DialogMador/>
-        <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleClose}>Subscribe</Button>
-        </DialogActions>
-      </Dialog>
+          <Dialog open={open} onClose={handleClose} maxWidth="lg" fullWidth>
+            <DialogMador />
+            <DialogActions>
+              <Button onClick={handleClose}>Cancel</Button>
+              <Button onClick={handleClose}>Subscribe</Button>
+            </DialogActions>
+          </Dialog>
         </Box>
       )}
     </Container>

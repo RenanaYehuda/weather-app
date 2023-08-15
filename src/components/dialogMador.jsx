@@ -1,29 +1,35 @@
-import { Box, DialogContent, DialogContentText, DialogTitle, TextField } from '@mui/material'
-import React from 'react'
-import Soldier from './soldier'
+import { Box, DialogContent, DialogTitle } from "@mui/material";
+import React from "react";
+import Soldier from "./soldier";
+import { useContext } from "react";
+import { Context } from "../contextProvider";
+import HeaderDialogMador from "./headerDialogMador";
+import AddSoldier from "./addSoldier";
+
 
 const DialogMador = () => {
+  const { allSoldiers } = useContext(Context);
+
   return (
     <Box>
-         <DialogTitle>Subscribe</DialogTitle>
-        <DialogContent>
-            <Soldier/>
-          {/* <DialogContentText>
-            To subscribe to this website, please enter your email address here. We
-            will send updates occasionally.
-          </DialogContentText> */}
-          {/* <TextField
-            autoFocus
-            margin="dense"
-            id="name"
-            label="Email Address"
-            type="email"
-            fullWidth
-            variant="standard"
-          /> */}
-        </DialogContent>
+      <DialogTitle>
+        <HeaderDialogMador />
+      </DialogTitle>
+      <DialogContent>
+        <AddSoldier />
+      </DialogContent>
+      <DialogContent
+        sx={{
+          display: "flex",
+          flexWrap: "wrap",
+        }}
+      >
+        {allSoldiers.map((item, i) => (
+          <Soldier key={i} soldier={item} />
+        ))}
+      </DialogContent>
     </Box>
-  )
-}
+  );
+};
 
-export default DialogMador
+export default DialogMador;
