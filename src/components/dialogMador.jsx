@@ -5,7 +5,7 @@ import { useContext } from "react";
 import { Context } from "../contextProvider";
 import HeaderDialogMador from "./headerDialogMador";
 import AddSoldier from "./addSoldier";
-
+import Soldiers from "./soldiers";
 
 const DialogMador = () => {
   const { allSoldiers } = useContext(Context);
@@ -18,15 +18,8 @@ const DialogMador = () => {
       <DialogContent>
         <AddSoldier />
       </DialogContent>
-      <DialogContent
-        sx={{
-          display: "flex",
-          flexWrap: "wrap",
-        }}
-      >
-        {allSoldiers.map((item, i) => (
-          <Soldier key={i} soldier={item} />
-        ))}
+      <DialogContent>
+        <Soldiers />
       </DialogContent>
     </Box>
   );

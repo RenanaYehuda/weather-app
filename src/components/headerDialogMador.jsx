@@ -54,10 +54,10 @@ const HeaderDialogMador = () => {
 
       <Box sx={{ display: "flex", flexDirection: "column" }}>
         <CardContent sx={{ flex: "1 0 auto" }}>
-          <Typography sx={{ font: "Poppins-Bold", fontSize: "24pt" }}>
+          <Typography sx={{ font: "Poppins-Bold", fontSize: "22pt" }}>
             חיילי המדור
           </Typography>
-          <Typography sx={{ font: "Poppins-Regular", fontSize: "17pt" }}>
+          <Typography sx={{ font: "Poppins-Regular", fontSize: "14pt" }}>
             {date}
           </Typography>
         </CardContent>

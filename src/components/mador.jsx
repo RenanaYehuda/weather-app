@@ -83,10 +83,6 @@ const Mador = () => {
           </Button>
           <Dialog open={open} onClose={handleClose} maxWidth="lg" fullWidth>
             <DialogMador />
-            <DialogActions>
-              <Button onClick={handleClose}>Cancel</Button>
-              <Button onClick={handleClose}>Subscribe</Button>
-            </DialogActions>
           </Dialog>
         </Box>
       )}

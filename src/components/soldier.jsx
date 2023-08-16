@@ -46,10 +46,10 @@ const Soldier = ({ soldier }) => {
           <Typography sx={{ font: "Poppins-Semi bold", fontSize: "17pt" }}>
             {soldier.First_Name} {soldier.Last_Name}
           </Typography>
-          <Typography sx={{ font: "Poppins-Regular", fontfontSize: "17pt" }}>
+          <Typography sx={{ font: "Poppins-Regular", fontSize: "14pt" }}>
             {soldier.Role}
           </Typography>
-          <Typography sx={{ font: "Poppins-Regular", fontfontSize: "16pt" }}>
+          <Typography sx={{ font: "Poppins-Regular", fontSize: "12pt" }}>
             פלוגה 1 | מחלקה 1
           </Typography>
         </CardContent>

@@ -8,7 +8,7 @@ const ContextProvider = ({ children }) => {
   const [allCities, setAllCities] = useState({});
   const [weather, setWeather] = useState({});
   const [lastSearch, setLastSearch] = useState([]);
-  const [allSoldiers, setAllSoldiers] = useState({});
+  const [allSoldiers, setAllSoldiers] = useState([]);
   return (
     <Context.Provider value={{ user, setUser, allCities, setAllCities, weather, setWeather, lastSearch, setLastSearch, city, setCity, allSoldiers, setAllSoldiers }}>
       {children}
