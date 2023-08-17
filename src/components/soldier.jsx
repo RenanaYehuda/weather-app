@@ -3,7 +3,6 @@ import {
   Card,
   CardContent,
   CardMedia,
-  IconButton,
   Typography,
 } from "@mui/material";
 import React from "react";
@@ -16,7 +15,7 @@ const Soldier = ({ soldier }) => {
       sx={{
         display: "flex",
         marginTop: "16px",
-        marginRight:"37px",
+        marginRight: "37px",
         // marginLeft:"4px",
         width: "240px",
         backgroundColor: "#edeced",
@@ -47,10 +46,10 @@ const Soldier = ({ soldier }) => {
             {soldier.First_Name} {soldier.Last_Name}
           </Typography>
           <Typography sx={{ font: "Poppins-Regular", fontSize: "14pt" }}>
-            {soldier.Role}
+            {soldier.Role}, {soldier.Age}
           </Typography>
-          <Typography sx={{ font: "Poppins-Regular", fontSize: "12pt" }}>
-            פלוגה 1 | מחלקה 1
+          <Typography sx={{ font: "Poppins-Regular", fontSize: "13pt" }}>
+            {soldier.Role}, {soldier.Rank}
           </Typography>
         </CardContent>
       </Box>
