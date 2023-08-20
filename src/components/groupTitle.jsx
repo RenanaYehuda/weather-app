@@ -21,7 +21,6 @@ const GroupTitle = ({ group }) => {
   return (
     <Container>
       <Typography variant="h4">{nameGroup}</Typography>
-      <br />
     </Container>
   );
 };

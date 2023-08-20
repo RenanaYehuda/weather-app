@@ -1,14 +1,4 @@
-import {
-  Box,
-  Button,
-  Container,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-  TextField,
-} from "@mui/material";
+import { Box, Button, Container, Dialog } from "@mui/material";
 import React from "react";
 import { useContext } from "react";
 import { Context } from "../contextProvider";
@@ -19,9 +9,9 @@ import DialogMador from "./dialogMador";
 const API_URL = "http://localhost:3001";
 
 const Mador = () => {
-  const { user, allSoldiers, setAllSoldiers } = useContext(Context);
+  const { user, allSoldiers, setAllSoldiers, open, setOpen } = useContext(Context);
   const [isLoading, setIsLoading] = useState(false);
-  const [open, setOpen] = React.useState(false);
+  // const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -42,7 +32,7 @@ const Mador = () => {
           },
         });
         console.log("jjjjjjjjjjjjjj");
-        if (resp.status == 200) {
+        if (resp.status === 200) {
           console.log(resp.data);
           setAllSoldiers(resp.data);
           setIsLoading(true);
@@ -57,7 +47,7 @@ const Mador = () => {
     console.log(allSoldiers);
   }, []);
   return (
-    <Container component="main" >
+    <Container component="main">
       {isLoading && (
         <Box
           sx={{

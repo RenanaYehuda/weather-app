@@ -9,7 +9,6 @@ import {
   Select,
   InputLabel,
   MenuItem,
-  Typography,
 } from "@mui/material";
 import { groupBy } from "core-js/actual/array/group-by";
 import { useState } from "react";
@@ -19,26 +18,31 @@ const Soldiers = () => {
   const options = ["City", "City_Location", "Gender", "Role_Rank"];
   const [groups, setGroups] = useState([]);
   const { allSoldiers, setAllSoldiers } = useContext(Context);
-  const [selected, setSelected] = useState("City");
+  const [selected, setSelected] = useState(options[0]);
 
   const handleChange = (event) => {
     event.preventDefault();
-    let groupByCategoryMap = [];
     let val = event.target.value;
     setSelected(val);
-    if (val === options[0]) {
+    groupByCategory();
+  };
+
+  const groupByCategory = () => {
+    let groupByCategoryMap = [];
+    if (selected === options[0]) {
       groupByCategoryMap = allSoldiers.groupBy((soldier) => soldier.City);
-    } else if (val === options[1]) {
+    } else if (selected === options[1]) {
       groupByCategoryMap = allSoldiers.groupBy(
         (soldier) => soldier.City_Location
       );
-    } else if (val === options[2]) {
+    } else if (selected === options[2]) {
       groupByCategoryMap = allSoldiers.groupBy((soldier) => soldier.Gender);
     } else {
-      groupByCategoryMap = allSoldiers.groupBy((soldier) => (soldier.Role && soldier.Rank));
+      groupByCategoryMap = allSoldiers.groupBy(
+        (soldier) => soldier.Role + soldier.Rank
+      );
     }
     setGroups(Object.entries(groupByCategoryMap));
-    console.log(groups);
   };
 
   useEffect(() => {
@@ -47,17 +51,12 @@ const Soldiers = () => {
         (a.First_Name + a.Last_Name).localeCompare(b.First_Name + b.Last_Name)
       )
     );
-
-    const select = async () => {
-      await setSelected("City");
-    };
-
-    select();
-  }, []);
+    groupByCategory();
+  });
 
   useEffect(() => {}, [groups]);
   return (
-    <Box component="main">
+    <Container component="main" sx={{maxHeight: 450, overflow: 'auto', marginBottom:"8px"}} >
       <FormControl
         variant="standard"
         sx={{ m: 1, minWidth: 150, direction: "rtl" }}
@@ -101,13 +100,13 @@ const Soldiers = () => {
             <React.Fragment>
               <GroupTitle group={item[0]} />
               {item[1].map((soldier, index) => (
-                <Soldier key={index} soldier={soldier} />
+                <Soldier key={index} soldier={soldier}/>
               ))}
             </React.Fragment>
           </React.Fragment>
         ))}
       </Box>
-    </Box>
+    </Container>
   );
 };
 
