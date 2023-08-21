@@ -6,14 +6,12 @@ import { useEffect } from "react";
 import moment from "moment/moment";
 
 const HeaderDialogMador = () => {
-  const [date, setDate] = useState(
-    moment().format("D/MM/YYYY") + " " + new Date().toJSON().slice(11, 19)
-  );
+  const [date, setDate] = useState("");
 
   const updateDate = () => {
-    let date = new Date().toJSON();
-    let currentDate = moment().format("D/MM/YYYY");
-    let currentTime = date.slice(11, 19);
+    let date = new Date();
+    let currentDate = `${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`;
+    let currentTime = date.toLocaleTimeString("it-IT");
     setDate(currentDate + " " + currentTime);
   };
 

@@ -26,7 +26,7 @@ const Main = () => {
       }
     } catch (err) {
       console.log(err.response);
-      alert("User or password worng, or service down");
+      alert("שם משתמש או הסיסמה שגויים");
     }
   };
 

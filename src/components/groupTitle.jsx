@@ -16,11 +16,13 @@ const GroupTitle = ({ group }) => {
   };
 
   useEffect(() => {
-    checkName()
+    checkName();
   });
   return (
     <Container>
-      <Typography variant="h4">{nameGroup}</Typography>
+      <Typography variant="h4" marginTop="12px">
+        {nameGroup}
+      </Typography>
     </Container>
   );
 };
