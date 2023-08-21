@@ -1,9 +1,12 @@
-import { AppBar, Toolbar, Typography, Button } from "@mui/material";
-import { Box, Container, maxHeight } from "@mui/system";
-import React from "react";
+import React, { useContext } from "react";
+import { AppBar, Toolbar, Button, Box } from "@mui/material";
+import { Container } from "@mui/system";
 import { useNavigate } from "react-router-dom";
+import { Context } from "../contextProvider";
 
 const Header = () => {
+  const { lastSearch } = useContext(Context);
+
   const nav = useNavigate();
 
   const logOut = () => {
@@ -21,8 +24,9 @@ const Header = () => {
       nav("/mador");
     } else alert("עליך להתחבר למערכת");
   };
+
   return (
-    <AppBar position="sticky" sx={{ height: "xl", backgroundColor: "#120E3E" }}>
+    <AppBar position="sticky" sx={{ height: "xl" }}>
       <Container maxWidth="xl">
         <Toolbar
           disableGutters
@@ -44,6 +48,19 @@ const Header = () => {
               onClick={() => mador()}
             >
               מדור
+            </Button>
+            <Button
+              variant="text"
+              size="large"
+              sx={{
+                color: "white",
+                fontSize: "25px",
+                pointerEvents:
+                  localStorage.getItem("user") == null ? "none" : "auto",
+              }}
+              onClick={() => nav("/history")}
+            >
+              היסטוריה {lastSearch.length > 0 ? lastSearch.length : null}
             </Button>
           </Box>
           <Button

@@ -5,6 +5,7 @@ import Login from "./components/login";
 import Main from "./components/main";
 import ContextProvider from "./contextProvider";
 import Header from "./components/header";
+import History from "./components/history";
 import Mador from "./components/mador";
 import Error from "./error";
 
@@ -19,6 +20,7 @@ const AppRoutes = () => {
             <Route path="/home" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/mador" element={<Mador />} />
+            <Route path="/history" element={< History/>} />
             <Route path="/*" element={<Error />} />
           </Route>
         </Routes>

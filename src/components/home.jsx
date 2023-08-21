@@ -43,7 +43,6 @@ const Home = () => {
   const { handleSubmit } = useForm();
 
   const onSubForm = () => {
-    console.log(city);
     createLastSearch();
     getCity();
   };
