@@ -19,28 +19,22 @@ const Header = () => {
   return (
     <AppBar position="sticky" sx={{ height: "xl", backgroundColor: "#120E3E" }}>
       <Container maxWidth="xl">
-        <Toolbar
-          disableGutters
-          sx={{ display: "flex", justifyContent: "space-between" }}
-        >
-          <Box>
-            <Button
-              variant="text"
-              size="large"
-              sx={{ color: "white", fontSize: "25px" }}
-              onClick={() => main()}
-            >
-              ראשי
-            </Button>
-            <Button
-              variant="text"
-              size="large"
-              sx={{ color: "white", fontSize: "25px", marginLeft: "10px" }}
-              onClick={() => mador()}
-            >
-              מדור
-            </Button>
-          </Box>
+        <Toolbar disableGutters>
+          <Button
+            variant="text"
+            size="large"
+            sx={{ color: "white", fontSize: "25px" }}
+          >
+            ראשי
+          </Button>
+          <Button
+            variant="text"
+            size="large"
+            sx={{ color: "white", fontSize: "25px" }}
+            onClick={()=> nav('/mador')}
+          >
+            מדור
+          </Button>
         </Toolbar>
       </Container>
     </AppBar>
