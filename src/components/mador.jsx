@@ -9,7 +9,8 @@ import DialogMador from "./dialogMador";
 const API_URL = "http://localhost:3001";
 
 const Mador = () => {
-  const { user, allSoldiers, setAllSoldiers, open, setOpen } = useContext(Context);
+  const { user, allSoldiers, setAllSoldiers, open, setOpen } =
+    useContext(Context);
   const [isLoading, setIsLoading] = useState(false);
   // const [open, setOpen] = React.useState(false);
 
@@ -31,7 +32,6 @@ const Mador = () => {
             user_mispar_ishi: user ? user.Mispar_Ishi : null,
           },
         });
-        console.log("jjjjjjjjjjjjjj");
         if (resp.status === 200) {
           console.log(resp.data);
           setAllSoldiers(resp.data);
@@ -39,7 +39,7 @@ const Mador = () => {
         }
       } catch (err) {
         console.log(err.response);
-        alert("User or password worng, or service down");
+        alert("טעינת החיילים נכשלה");
       }
     };
 

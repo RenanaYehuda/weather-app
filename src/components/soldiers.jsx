@@ -9,6 +9,7 @@ import {
   Select,
   InputLabel,
   MenuItem,
+  Typography,
 } from "@mui/material";
 import { groupBy } from "core-js/actual/array/group-by";
 import { useState } from "react";
@@ -39,7 +40,7 @@ const Soldiers = () => {
       groupByCategoryMap = allSoldiers.groupBy((soldier) => soldier.Gender);
     } else {
       groupByCategoryMap = allSoldiers.groupBy(
-        (soldier) => soldier.Role + soldier.Rank
+        (soldier) => soldier.Role + ", " + soldier.Rank
       );
     }
     setGroups(Object.entries(groupByCategoryMap));
@@ -56,16 +57,25 @@ const Soldiers = () => {
 
   useEffect(() => {}, [groups]);
   return (
-    <Container component="main" sx={{maxHeight: 450, overflow: 'auto', marginBottom:"8px"}} >
+    <Container
+      component="main"
+      sx={{ maxHeight: 450, overflow: "auto", marginBottom: "8px" }}
+    >
       <FormControl
         variant="standard"
         sx={{ m: 1, minWidth: 150, direction: "rtl" }}
       >
-        <InputLabel>סדר לפי:</InputLabel>
+        <Typography>סדר לפי:</Typography>
         <Select
           value={selected}
           onChange={handleChange}
           label="Age"
+          sx={{
+            "& .MuiSelect-icon": {
+              left: 10,
+              right: "auto",
+            },
+          }}
           MenuProps={{
             PaperProps: {
               sx: {
@@ -100,7 +110,7 @@ const Soldiers = () => {
             <React.Fragment>
               <GroupTitle group={item[0]} />
               {item[1].map((soldier, index) => (
-                <Soldier key={index} soldier={soldier}/>
+                <Soldier key={index} soldier={soldier} />
               ))}
             </React.Fragment>
           </React.Fragment>

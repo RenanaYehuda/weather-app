@@ -37,6 +37,7 @@ const AddSoldier = () => {
       Age: 22,
     };
     await setAllSoldiers([...allSoldiers, { ...bodyData, ...body }]);
+    alert("החייל נוסף בהצלחה")
   };
 
   let nameRef = register("First_Name", {
@@ -70,6 +71,13 @@ const AddSoldier = () => {
           sx={{ marginTop: 2 }}
           name="First_Name"
           {...nameRef}
+          InputLabelProps={{
+            style: {
+              textAlign: "right",
+              position: "absolute",
+              left: "94.4%",
+            },
+          }}
         />
         {errors.First_Name && <div className="text-danger">הכנס שם</div>}
         <TextField
@@ -78,6 +86,13 @@ const AddSoldier = () => {
           sx={{ marginTop: 2 }}
           name="Mispar_Ishi"
           {...idRef}
+          InputLabelProps={{
+            style: {
+              textAlign: "right",
+              position: "absolute",
+              left: "93.7%",
+            },
+          }}
         />
         {errors.Mispar_Ishi && (
           <div className="text-danger">הכנס מספר אישי</div>
@@ -88,6 +103,13 @@ const AddSoldier = () => {
           sx={{ marginTop: 2 }}
           name="User_Name"
           {...userNameRef}
+          InputLabelProps={{
+            style: {
+              textAlign: "right",
+              position: "absolute",
+              left: "93%",
+            },
+          }}
         />
         {errors.User_Name && <div className="text-danger">הכנס שם משתמש</div>}
         <FormLabel sx={{ marginTop: 2 }}>מין</FormLabel>

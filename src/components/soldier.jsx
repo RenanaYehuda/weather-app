@@ -2,6 +2,7 @@ import { Box, Card, CardContent, CardMedia, Typography } from "@mui/material";
 import React, { useContext, useEffect, useState } from "react";
 import profileMan from "../man.svg";
 import profileWoman from "../woman.svg";
+import officer from "../sword.svg";
 import { Context } from "../contextProvider";
 
 const Soldier = ({ soldier }) => {
@@ -34,6 +35,7 @@ const Soldier = ({ soldier }) => {
     <Card
       onClick={() => setIsCardClicked(!isCardClicked)}
       sx={{
+        position:"relative",
         display: "flex",
         marginTop: "11px",
         marginRight: "20px",
@@ -41,25 +43,35 @@ const Soldier = ({ soldier }) => {
         backgroundColor: "#edeced",
         alignContent: "center",
         alignItems: "center",
-        justifyContent: "center",
         border: isCardClicked ? "3px solid black" : "none",
       }}
     >
-      {soldier.Gender === "ז" ? (
+      
+        {soldier.Gender === "ז" ? (
         <CardMedia
           component="img"
-          sx={{ width: 61, height: 61, borderRadius: "50%" }}
+          sx={{ width: 61, height: 61, borderRadius: "50%", marginRight:"8px" }}
           src={profileMan}
           alt="Profile male"
         />
       ) : (
         <CardMedia
           component="img"
-          sx={{ width: 61, height: 61, borderRadius: "50%" }}
+          sx={{ width: 61, height: 61, borderRadius: "50%", marginRight:"8px" }}
           src={profileWoman}
           alt="Profile female"
         />
       )}
+
+      
+      {soldier.Is_Officer ? <CardMedia
+          component="img"
+          sx={{ width: 17, height: 17, borderRadius: "50%", position:"absolute", top: "70px",
+          right: "55px"}}
+          src={officer}
+          alt="Profile female"
+        /> : null
+      }
 
       <Box sx={{ display: "flex", flexDirection: "column" }}>
         <CardContent sx={{ flex: "1 0 auto" }}>

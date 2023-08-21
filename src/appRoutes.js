@@ -6,6 +6,7 @@ import Main from "./components/main";
 import ContextProvider from "./contextProvider";
 import Header from "./components/header";
 import Mador from "./components/mador";
+import Error from "./error";
 
 const AppRoutes = () => {
   return (
@@ -18,7 +19,7 @@ const AppRoutes = () => {
             <Route path="/home" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/mador" element={<Mador />} />
-            <Route path="/*" element={<h1>ERROR 404</h1>} />
+            <Route path="/*" element={<Error />} />
           </Route>
         </Routes>
       </Router>
