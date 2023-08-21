@@ -6,6 +6,11 @@ import { useNavigate } from "react-router-dom";
 const Header = () => {
   const nav = useNavigate();
 
+  const logOut = () => {
+    localStorage.removeItem("user");
+    nav("/login");
+  };
+
   const main = () => {
     if (localStorage.getItem("user") !== null) {
       nav("/home");
@@ -41,6 +46,19 @@ const Header = () => {
               מדור
             </Button>
           </Box>
+          <Button
+            variant="text"
+            size="large"
+            sx={{
+              color: "white",
+              fontSize: "25px",
+              pointerEvents:
+                localStorage.getItem("user") == null ? "none" : "auto",
+            }}
+            onClick={() => logOut()}
+          >
+            התנתקות
+          </Button>
         </Toolbar>
       </Container>
     </AppBar>
