@@ -1,4 +1,4 @@
-import { Box, Card, CardContent, CardMedia } from "@mui/material";
+import { Box, Card, CardContent, CardMedia, Typography } from "@mui/material";
 import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../contextProvider";
 
@@ -50,10 +50,10 @@ const BigWeather = () => {
             cols={6}
             sx={{ flex: "1 0 auto", marginTop: 24, marginRight: 24 }}
           >
-            <h3>היום</h3>
-            <h2>{city}</h2>
-            <p>טמפרטורה: &#8451; {temp}</p>
-            <p>{description}</p>
+            <Typography sx={{ font: "Poppins-Bold", fontSize: "28pt" }}>היום</Typography>
+            <Typography sx={{ font: "Poppins-Regular", fontSize: "18pt" }}>{city}</Typography>
+            <Typography sx={{ font: "Poppins-Regular", fontSize: "16pt" }}>טמפרטורה: &#8451; {temp}</Typography>
+            <Typography sx={{ font: "Poppins-Regular", fontSize: "14pt" }}>{description}</Typography>
           </CardContent>
         </Box>
         <CardMedia

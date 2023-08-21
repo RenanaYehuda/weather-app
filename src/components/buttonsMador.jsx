@@ -11,16 +11,30 @@ const ButtonsMador = () => {
     chooseSoldiers,
     user,
     setAllSoldiers,
-    setOpen
+    setOpen,
   } = useContext(Context);
 
   const chooseAll = () => {
     setChooseSoldiers([...allSoldiers]);
+    alert("כל החיילים נבחרו")
     console.log(chooseSoldiers);
   };
   const removeAll = () => {
-    setChooseSoldiers([]);
+    
     console.log(chooseSoldiers);
+    console.log(allSoldiers);
+    if (chooseSoldiers.length == allSoldiers.length) {
+      setChooseSoldiers([]);
+      setAllSoldiers([]);
+      alert("מחקת חיילים מסומנים בהצלחה")
+    } else {
+      const result = allSoldiers.filter(
+        (soldier) => !chooseSoldiers.includes(soldier)
+      );
+      setChooseSoldiers(result);
+      setAllSoldiers(result);
+      alert("מחקת חיילים מסומנים בהצלחה")
+    }
   };
 
   const saveAll = async () => {
@@ -37,13 +51,15 @@ const ButtonsMador = () => {
         },
       });
       if (resp.status == 200) {
+        alert("הנתונים נשמרו בהצלחה");
         setAllSoldiers(chooseSoldiers);
-        setOpen(false)
+        setChooseSoldiers([]);
+        setOpen(false);
         console.log("succses");
       }
     } catch (err) {
       console.log(err.response);
-      alert("Add soldier failed , service down");
+      alert("הוספת החייל נכשלה");
     }
   };
 

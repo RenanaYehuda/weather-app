@@ -64,38 +64,54 @@ const Home = () => {
       }
     } catch (err) {
       console.log(err.response);
-      alert("User or password worng, or service down");
+      alert("טעינת נתוני העיר נכשלה");
     }
   };
 
-  const getWeather = (lat_lon) => {
-    // let url = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat_lon.latitude}&lon=${lat_lon.longitude}&appid=6f11fa9760902e1597265ad205f05d2c`;
+  const getWeather = async (lat_lon) => {
+    console.log("hhhhhhhhhhhhhh");
+    let resp;
+    let url = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat_lon.latitude}&lon=${lat_lon.longitude}&appid=6f11fa9760902e1597265ad205f05d2c`;
+    console.log(url);
     try {
-      // let resp = await doApiGet(url);
-      let resp;
-      if (resp) {
-        setWeather(resp.data);
-        console.log(resp.data);
-      } else {
-        let city = dataCountry.find(
+    //   console.log(url);
+    //   try {
+    //     resp = await axios.get(url, {
+    //       headers: {
+    //         user_name: user ? user.User_Name : null,
+    //         user_mispar_ishi: user ? user.Mispar_Ishi : null,
+    //       },
+    //     });
+    //   } catch (err) {
+    //     console.log(err.message);
+    //     alert("טעינת מזג האוויר נכשלה");
+    //   }
+
+     
+      // if (resp) {
+      //   setWeather(resp.data);
+      //   console.log(resp.data);
+      // } else {
+        let weath = dataCountry.find(
           (city) =>
             city.lat == lat_lon.latitude.toFixed(4) &&
             city.lon == lat_lon.longitude.toFixed(4)
         );
-        if (city) {
-          setWeather(city);
+        if (weath) {
+         await setWeather(weath);
+          console.log(weath);
           console.log("haveeeeee");
           console.log(weather);
         } else {
-          setWeather("");
+         await setWeather("");
           console.log("nooooooooo");
           console.log(weather);
         }
-      }
+      // }
     } catch (err) {
       setWeather("");
       console.log(err.message);
-      alert("User or password worng, or service down");
+      alert("טעינת מזג האוויר נכשלה");
     }
   };
 
@@ -120,20 +136,23 @@ const Home = () => {
     const getCities = async () => {
       let url = API_URL + "/getAllCities";
       try {
-        let resp = await axios.get(url, {
+        await axios.get(url, {
           headers: {
             user_name: user ? user.User_Name : null,
             user_mispar_ishi: user ? user.Mispar_Ishi : null,
           },
-        });
-        if (resp.status == 200) {
+        }).then(resp=>{
+          console.log(resp);
+          if (resp.status == 200) {
           console.log(resp.data);
           setAllCities(resp.data);
           setIsLoading(true);
         }
+        }).catch(err=>
+          {alert("טעינת נתוני הערים נכשלה");})
       } catch (err) {
         console.log(err.response);
-        alert("User or password worng, or service down");
+       
       }
     };
 
@@ -193,7 +212,7 @@ const Home = () => {
               </Box>
             </FormControl>
           </Box>
-          {weather ? (
+          {(weather) ? (
             <>
               <BigWeather />
               <Stack

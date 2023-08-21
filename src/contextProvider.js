@@ -6,7 +6,7 @@ const ContextProvider = ({ children }) => {
   const [user, setUser] = useState({});
   const [city, setCity] = useState("Jerusalem");
   const [allCities, setAllCities] = useState({});
-  const [weather, setWeather] = useState({});
+  const [weather, setWeather] = useState(null);
   const [lastSearch, setLastSearch] = useState([]);
   const [allSoldiers, setAllSoldiers] = useState([]);
   const [chooseSoldiers, setChooseSoldiers] = useState([]);
