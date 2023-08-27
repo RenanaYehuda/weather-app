@@ -71,9 +71,7 @@ const Mador = () => {
           >
             פתיחת חלון
           </Button>
-          <Dialog open={open} onClose={handleClose} maxWidth="lg" fullWidth>
-            <DialogMador />
-          </Dialog>
+            <DialogMador  open={open} onClose={handleClose}  />
         </Box>
       )}
     </Container>

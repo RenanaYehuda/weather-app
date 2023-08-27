@@ -69,7 +69,7 @@ const LittleWeather = (props) => {
       sx={{
         width: 250,
         height: 200,
-        marginTop: 8,
+        marginTop: 4,
         marginRight: 2,
         marginBottom: 8,
         display: "flex",

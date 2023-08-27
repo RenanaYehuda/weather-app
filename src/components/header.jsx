@@ -26,11 +26,11 @@ const Header = () => {
   };
 
   return (
-    <AppBar position="sticky" sx={{ height: "xl" }}>
+    <AppBar position="static" sx={{ height: "xl", backgroundColor:"#000039"  }}>
       <Container maxWidth="xl">
         <Toolbar
           disableGutters
-          sx={{ display: "flex", justifyContent: "space-between" }}
+          sx={{ display: "flex", justifyContent: "space-between"}}
         >
           <Box>
             <Button

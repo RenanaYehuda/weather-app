@@ -32,7 +32,7 @@ const BigWeather = () => {
   }, [weather, temp, description]);
 
   return (
-    <Box>
+    <Box > 
       <Card
         sx={{
           width: 900,
@@ -43,6 +43,7 @@ const BigWeather = () => {
           borderRadius: 25,
           backgroundColor: `rgba(252, 248, 248, 0.384)`,
           position: "relative",
+          
         }}
       >
         <Box sx={{ display: "flex", flexDirection: "column" }}>

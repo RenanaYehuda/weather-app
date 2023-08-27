@@ -18,7 +18,7 @@ import { Context } from "../contextProvider";
 const AddSoldier = () => {
   const { allSoldiers, setAllSoldiers } = useContext(Context);
   const {
-    formState: { isDirty, isValid },
+    formState: { isDirty },
     register,
     handleSubmit,
     formState: { errors },
@@ -37,7 +37,7 @@ const AddSoldier = () => {
       Age: 22,
     };
     await setAllSoldiers([...allSoldiers, { ...bodyData, ...body }]);
-    alert("החייל נוסף בהצלחה")
+    alert("החייל נוסף בהצלחה");
   };
 
   let nameRef = register("First_Name", {
@@ -133,7 +133,7 @@ const AddSoldier = () => {
 
         <Box sx={{ justifyContent: "flex-end", display: "flex" }}>
           <Button
-            disabled={!isDirty || !isValid}
+            disabled={!isDirty}
             type="submit"
             variant="contained"
             sx={{

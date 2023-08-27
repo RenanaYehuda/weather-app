@@ -163,15 +163,16 @@ const Home = () => {
   }, []);
 
   return (
-    <Container component="main">
+    <Container component="main"  maxWidth="xl">
       {isLoading ? (
         <Box
           sx={{
-            marginTop: 16,
+            marginTop: 4,
             display: "flex",
             flexDirection: "column",
-            alignItems: "center",
+            alignItems: "center"
           }}
+          
         >
           <h1>
             שלום {user.First_Name} {user.Last_Name}
@@ -216,7 +217,7 @@ const Home = () => {
               <BigWeather />
               <Stack
                 direction={"row"}
-                sx={{ position: "absolute", bottom: "-20%" }}
+                sx={{ position: "absolute", bottom: "1%",}}
               >
                 {days.map((item, i) => (
                   <LittleWeather key={i} k={i} day={item} />
