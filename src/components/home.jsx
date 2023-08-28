@@ -11,12 +11,11 @@ import {
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../contextProvider";
-import BigWeather from "./bigWeather";
-import LittleWeather from "./littleWeather";
+import BigWeather from "./weather/bigWeather";
+import LittleWeather from "./weather/littleWeather";
 import { useForm } from "react-hook-form";
 import dataCountry from "../data/apiRequest.json";
-import axios from "axios";
-const API_URL = "http://localhost:3001";
+import { apiGetCities, apiGetCity } from "../apiRequest";
 
 const Home = () => {
   const days = [
@@ -27,6 +26,7 @@ const Home = () => {
     "בעוד 5 ימים",
   ];
 
+  const [searchClicked, setSearchClicked] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const {
     user,
@@ -42,74 +42,55 @@ const Home = () => {
 
   const { handleSubmit } = useForm();
 
-  const onSubForm = () => {
+  const onSubForm = async () => {
+    setSearchClicked(true);
     createLastSearch();
     getCity();
   };
 
   const getCity = async () => {
-    console.log(city);
-    let url = API_URL + `/cities/${city}`;
     try {
-      let resp = await axios.get(url, {
-        headers: {
-          user_name: user ? user.User_Name : null,
-          user_mispar_ishi: user ? user.Mispar_Ishi : null,
-        },
-      });
+      let resp = await apiGetCity(user, city);
       if (resp) {
-        console.log(resp.data);
         getWeather(resp.data);
       }
-    } catch (err) {
-      console.log(err.response);
-      alert("טעינת נתוני העיר נכשלה");
-    }
+    } catch (err) {}
   };
 
   const getWeather = async (lat_lon) => {
-    console.log("hhhhhhhhhhhhhh");
     let resp;
     let url = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat_lon.latitude}&lon=${lat_lon.longitude}&appid=6f11fa9760902e1597265ad205f05d2c`;
-    console.log(url);
     try {
-    //   console.log(url);
-    //   try {
-    //     resp = await axios.get(url, {
-    //       headers: {
-    //         user_name: user ? user.User_Name : null,
-    //         user_mispar_ishi: user ? user.Mispar_Ishi : null,
-    //       },
-    //     });
-    //   } catch (err) {
-    //     console.log(err.message);
-    //     alert("טעינת מזג האוויר נכשלה");
-    //   }
+      //   console.log(url);
+      //   try {
+      //     resp = await axios.get(url, {
+      //       headers: {
+      //         user_name: user ? user.User_Name : null,
+      //         user_mispar_ishi: user ? user.Mispar_Ishi : null,
+      //       },
+      //     });
+      //   } catch (err) {
+      //     console.log(err.message);
+      //     alert("טעינת מזג האוויר נכשלה");
+      //   }
 
-     
       // if (resp) {
       //   setWeather(resp.data);
       //   console.log(resp.data);
       // } else {
-        let weath = dataCountry.find(
-          (city) =>
-            city.lat == lat_lon.latitude.toFixed(4) &&
-            city.lon == lat_lon.longitude.toFixed(4)
-        );
-        if (weath) {
-         await setWeather(weath);
-          console.log(weath);
-          console.log("haveeeeee");
-          console.log(weather);
-        } else {
-         await setWeather("");
-          console.log("nooooooooo");
-          console.log(weather);
-        }
+      let weath = dataCountry.find(
+        (city) =>
+          city.lat == lat_lon.latitude.toFixed(4) &&
+          city.lon == lat_lon.longitude.toFixed(4)
+      );
+      if (weath) {
+        await setWeather(weath);
+      } else {
+        await setWeather("");
+      }
       // }
     } catch (err) {
       setWeather("");
-      console.log(err.message);
       alert("טעינת מזג האוויר נכשלה");
     }
   };
@@ -120,42 +101,27 @@ const Home = () => {
     if (detailesCity) {
       detailesCity = detailesCity[0];
       if (searchs.length < 5) {
-        console.log(detailesCity);
         searchs.unshift(detailesCity);
       } else {
         searchs.pop();
         searchs.unshift(detailesCity);
       }
-      console.log(searchs);
       setLastSearch(searchs);
-    } else console.log("City not exsist");
+    }
   };
 
   useEffect(() => {
-    const getCities = async () => {
-      let url = API_URL + "/getAllCities";
+    const getAllCities = async () => {
       try {
-        await axios.get(url, {
-          headers: {
-            user_name: user ? user.User_Name : null,
-            user_mispar_ishi: user ? user.Mispar_Ishi : null,
-          },
-        }).then(resp=>{
-          console.log(resp);
-          if (resp.status == 200) {
-          console.log(resp.data);
+        let resp = await apiGetCities(user);
+        if (resp) {
           setAllCities(resp.data);
           setIsLoading(true);
         }
-        }).catch(err=>
-          {alert("טעינת נתוני הערים נכשלה");})
-      } catch (err) {
-        console.log(err.response);
-       
-      }
+      } catch (err) {}
     };
 
-    getCities();
+    getAllCities();
   }, []);
 
   useEffect(() => {
@@ -163,16 +129,15 @@ const Home = () => {
   }, []);
 
   return (
-    <Container component="main"  maxWidth="xl">
+    <Container component="main" maxWidth="xl">
       {isLoading ? (
         <Box
           sx={{
             marginTop: 4,
             display: "flex",
             flexDirection: "column",
-            alignItems: "center"
+            alignItems: "center",
           }}
-          
         >
           <h1>
             שלום {user.First_Name} {user.Last_Name}
@@ -195,7 +160,11 @@ const Home = () => {
                   <SearchRoundedIcon />
                 </IconButton>
                 <NativeSelect
-                  onChange={(e) => setCity(e.target.value)}
+                  onChange={(e) => {
+                    if (searchClicked) {
+                      setCity(e.target.value);
+                    }
+                  }}
                   defaultValue={city}
                   inputProps={{
                     name: "city",
@@ -212,12 +181,12 @@ const Home = () => {
               </Box>
             </FormControl>
           </Box>
-          {(weather) ? (
+          {weather ? (
             <>
               <BigWeather />
               <Stack
                 direction={"row"}
-                sx={{ position: "absolute", bottom: "1%",}}
+                sx={{ position: "absolute", bottom: "1%" , width:"80%", display:"flex", justifyContent:"center", alignItems:"center"}}
               >
                 {days.map((item, i) => (
                   <LittleWeather key={i} k={i} day={item} />

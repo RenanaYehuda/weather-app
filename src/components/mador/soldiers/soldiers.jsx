@@ -1,24 +1,22 @@
 import React, { useEffect } from "react";
 import Soldier from "./soldier";
-import { useContext } from "react";
-import { Context } from "../contextProvider";
 import {
   Box,
   Container,
   FormControl,
   Select,
-  InputLabel,
   MenuItem,
   Typography,
 } from "@mui/material";
 import { groupBy } from "core-js/actual/array/group-by";
 import { useState } from "react";
-import GroupTitle from "./groupTitle";
+import GroupTitle from "../groupTitle";
 
-const Soldiers = () => {
+const Soldiers = (props) => {
   const options = ["City", "City_Location", "Gender", "Role_Rank"];
   const [groups, setGroups] = useState([]);
-  const { allSoldiers, setAllSoldiers } = useContext(Context);
+  const { allSoldiers, setAllSoldiers, chooseSoldiers, setChooseSoldiers } =
+    props;
   const [selected, setSelected] = useState(options[0]);
 
   const handleChange = (event) => {
@@ -59,7 +57,7 @@ const Soldiers = () => {
   return (
     <Container
       component="main"
-      sx={{ maxHeight: 450, overflow: "auto", marginBottom: "8px" }}
+      sx={{ height: 450, overflow: "auto", marginBottom: "8px" }}
     >
       <FormControl
         variant="standard"
@@ -110,7 +108,12 @@ const Soldiers = () => {
             <React.Fragment>
               <GroupTitle group={item[0]} />
               {item[1].map((soldier, index) => (
-                <Soldier key={index} soldier={soldier} />
+                <Soldier
+                  key={index}
+                  soldier={soldier}
+                  chooseSoldiers={chooseSoldiers}
+                  setChooseSoldiers={setChooseSoldiers}
+                />
               ))}
             </React.Fragment>
           </React.Fragment>

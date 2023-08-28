@@ -1,66 +1,48 @@
 import { Button, Container, Stack } from "@mui/material";
 import React, { useContext } from "react";
-import { Context } from "../contextProvider";
-import axios from "axios";
-const API_URL = "http://localhost:3001";
+import { Context } from "../../contextProvider";
+import { apiUpdateSoldiers } from "../../apiRequest";
 
-const ButtonsMador = () => {
+const ButtonsMador = (props) => {
+  const { user } = useContext(Context);
+
   const {
+    setOpen,
     setChooseSoldiers,
     allSoldiers,
     chooseSoldiers,
-    user,
     setAllSoldiers,
-    setOpen,
-  } = useContext(Context);
+  } = props;
 
   const chooseAll = () => {
     setChooseSoldiers([...allSoldiers]);
-    alert("כל החיילים נבחרו")
-    console.log(chooseSoldiers);
+  };
+  const clearAll = () => {
+    setChooseSoldiers([]);
   };
   const removeAll = () => {
-    
-    console.log(chooseSoldiers);
-    console.log(allSoldiers);
     if (chooseSoldiers.length == allSoldiers.length) {
       setChooseSoldiers([]);
       setAllSoldiers([]);
-      alert("מחקת חיילים מסומנים בהצלחה")
     } else {
       const result = allSoldiers.filter(
         (soldier) => !chooseSoldiers.includes(soldier)
       );
-      setChooseSoldiers(result);
+      setChooseSoldiers([]);
       setAllSoldiers(result);
-      alert("מחקת חיילים מסומנים בהצלחה")
     }
   };
 
   const saveAll = async () => {
-    let url = API_URL + "/updateMadorSoldiers";
-
     try {
-      let resp = await axios({
-        url: url,
-        method: "put",
-        data: { newSoldiers: [...allSoldiers] },
-        headers: {
-          user_name: user ? user.User_Name : null,
-          user_mispar_ishi: user ? user.Mispar_Ishi : null,
-        },
-      });
-      if (resp.status == 200) {
-        alert("הנתונים נשמרו בהצלחה");
+      let data = { newSoldiers: [...allSoldiers] };
+      let resp = await apiUpdateSoldiers(user, data);
+      if (resp) {
         setAllSoldiers(chooseSoldiers);
         setChooseSoldiers([]);
         setOpen(false);
-        console.log("succses");
       }
-    } catch (err) {
-      console.log(err.response);
-      alert("הוספת החייל נכשלה");
-    }
+    } catch (err) {}
   };
 
   return (
@@ -110,7 +92,7 @@ const ButtonsMador = () => {
             fontSize: "14pt",
             borderRadius: "12px",
           }}
-          onClick={() => removeAll()}
+          onClick={() => clearAll()}
         >
           נקה הכל
         </Button>

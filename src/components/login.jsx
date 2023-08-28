@@ -7,11 +7,9 @@ import Container from "@mui/material/Container";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { Context } from "../contextProvider";
-import axios from "axios";
-const API_URL = "http://localhost:3001";
+import { apiLogin } from "../apiRequest";
 
 const Login = () => {
-
   const { setUser } = useContext(Context);
   const nav = useNavigate();
   const {
@@ -22,31 +20,19 @@ const Login = () => {
 
   const onSubForm = (bodyData, event) => {
     event.preventDefault();
-    console.log(bodyData);
     doApiForm(bodyData);
   };
 
   const doApiForm = async (bodyData) => {
-    let url = API_URL + "/login";
     try {
-      let resp = await axios({
-        url: url,
-        method: 'post',
-        data: bodyData,
-        headers: {
-          user_name: bodyData.userName,
-          user_mispar_ishi: bodyData.password,
-        },
-      });
-      if (resp.status == 200) {
+      let resp = await apiLogin(bodyData);
+      if (resp) {
         localStorage.setItem("user", JSON.stringify(bodyData));
-        console.log(resp.data);
-        setUser(resp.data)
-        alert("התחברת בהצלחה(:")
+        setUser(resp.data);
+        alert("התחברת בהצלחה(:");
         nav("/home");
       }
     } catch (err) {
-      console.log(err.response);
       alert("שם משתמש או הסיסמה שגויים");
     }
   };

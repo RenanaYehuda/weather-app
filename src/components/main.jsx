@@ -2,39 +2,32 @@ import React, { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Context } from "../contextProvider";
 import axios from "axios";
-const API_URL = "http://localhost:3001";
+import Login from "./login";
+import Home from "./home";
+import { useState } from "react";
+import { apiLogin } from "../apiRequest";
 
 const Main = () => {
+  const v = useNavigate();
   const { setUser } = useContext(Context);
-  const nav = useNavigate();
+  const [nav, setNav] = useState("");
 
   const login = async (bodyData) => {
-    let url = API_URL + "/login";
     try {
-      let resp = await axios({
-        url: url,
-        method: 'post',
-        data: bodyData,
-        headers: {
-          user_name: bodyData.userName,
-          user_mispar_ishi: bodyData.password,
-        },
-      });
-      if (resp.status == 200) {
+      let resp = await apiLogin(bodyData);
+      if (resp) {
+        setNav("home");
         setUser(resp.data);
-        nav("/home");
       }
-    } catch (err) {
-      console.log(err.response);
-      alert("שם משתמש או הסיסמה שגויים");
-    }
+    } catch (err) {}
   };
 
   useEffect(() => {
     const item = JSON.parse(localStorage.getItem("user"));
-    item ? login(item) : nav("/login");
+
+    item ? login(item) : setNav("login");
   }, []);
-  return <div></div>;
+  return <> {nav == "home" ? <Home /> : <Login />}</>;
 };
 
 export default Main;

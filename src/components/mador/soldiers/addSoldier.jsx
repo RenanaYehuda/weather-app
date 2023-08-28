@@ -11,12 +11,10 @@ import {
 } from "@mui/material";
 
 import React, { useEffect } from "react";
-import { useContext } from "react";
 import { useForm } from "react-hook-form";
-import { Context } from "../contextProvider";
 
-const AddSoldier = () => {
-  const { allSoldiers, setAllSoldiers } = useContext(Context);
+const AddSoldier = (props) => {
+  const { allSoldiers, setAllSoldiers } = props;
   const {
     formState: { isDirty },
     register,
@@ -26,7 +24,6 @@ const AddSoldier = () => {
 
   const onSubForm = async (bodyData, event) => {
     event.preventDefault();
-    console.log(bodyData);
     let body = {
       Last_Name: " ",
       Role: "מפתח תוכנה",

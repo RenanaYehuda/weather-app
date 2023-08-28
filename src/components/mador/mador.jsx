@@ -1,18 +1,17 @@
-import { Box, Button, Container, Dialog } from "@mui/material";
+import { Box, Button, Container } from "@mui/material";
 import React from "react";
 import { useContext } from "react";
-import { Context } from "../contextProvider";
+import { Context } from "../../contextProvider";
 import { useState } from "react";
-import axios from "axios";
 import { useEffect } from "react";
 import DialogMador from "./dialogMador";
-const API_URL = "http://localhost:3001";
+import { apiGetSoldiers } from "../../apiRequest";
 
 const Mador = () => {
-  const { user, allSoldiers, setAllSoldiers, open, setOpen } =
-    useContext(Context);
+  const { user } = useContext(Context);
   const [isLoading, setIsLoading] = useState(false);
-  // const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(false);
+  const [allSoldiers, setAllSoldiers] = useState([]);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -24,27 +23,16 @@ const Mador = () => {
 
   useEffect(() => {
     const getSoldiers = async () => {
-      let url = API_URL + "/getAllSoldiers";
       try {
-        let resp = await axios.get(url, {
-          headers: {
-            user_name: user ? user.User_Name : null,
-            user_mispar_ishi: user ? user.Mispar_Ishi : null,
-          },
-        });
+        let resp = await apiGetSoldiers(user);
         if (resp.status === 200) {
-          console.log(resp.data);
           setAllSoldiers(resp.data);
           setIsLoading(true);
         }
-      } catch (err) {
-        console.log(err.response);
-        alert("טעינת החיילים נכשלה");
-      }
+      } catch (err) {}
     };
 
     getSoldiers();
-    console.log(allSoldiers);
   }, []);
   return (
     <Container component="main">
@@ -71,7 +59,13 @@ const Mador = () => {
           >
             פתיחת חלון
           </Button>
-            <DialogMador  open={open} onClose={handleClose}  />
+          <DialogMador
+            open={open}
+            setOpen={setOpen}
+            onClose={handleClose}
+            allSoldiers={allSoldiers}
+            setAllSoldiers={setAllSoldiers}
+          />
         </Box>
       )}
     </Container>

@@ -1,6 +1,7 @@
-import { Box, Card, CardContent, CardMedia } from "@mui/material";
+import { Box, Card, CardContent, CardMedia, Typography } from "@mui/material";
 import React, { useContext, useEffect, useState } from "react";
-import { Context } from "../contextProvider";
+import { Context } from "../../contextProvider";
+import { changeImg } from "../../functions";
 
 const LittleWeather = (props) => {
   const { weather } = useContext(Context);
@@ -8,46 +9,33 @@ const LittleWeather = (props) => {
   const [temp, setTemp] = useState(0);
   const [background, setBackground] = useState("rgba(252, 248, 248, 0.384)");
 
-  const changeImg = () => {
-    if (weather.daily[props.k + 1].temp.day > 29) {
-      setImage("../../images/sun-g65b7d7a8d_640.png");
-    } else if (weather.daily[props.k + 1].clouds > 20) {
-      setImage("../../images/sunRain.png");
-    } else if (weather.daily[props.k + 1].pop > 40) {
-      setImage("../../images/rain.png");
-    } else setImage("../../images/rainbow.png");
-  };
-
   const checkMone = () => {
+    let feel = weather.daily[props.k + 1].feels_like;
     let mone = 0;
-    if (
-      (weather.daily[props.k + 1].feels_like.day -
-      weather.daily[props.k + 1].feels_like.eve) > 1
-    ) {
-      mone++;
-    }
-    if (
-      (weather.daily[props.k + 1].feels_like.day -
-      weather.daily[props.k + 1].feels_like.morn) > 1
-    ) {
-      mone++;
-    }
-    if (
-      (weather.daily[props.k + 1].feels_like.day -
-      weather.daily[props.k + 1].feels_like.night) > 1
-    ) {
-      mone++;
+    switch (true) {
+      case feel.day - feel.eve > 1:
+        mone++;
+      case feel.day - feel.morn > 1:
+        mone++;
+      case feel.day - feel.night > 1:
+        mone++;
+      default:
+        break;
     }
     changeBackground(mone);
   };
 
   const changeBackground = (_mone) => {
-    if (_mone == 1) {
-      setBackground("#D3D3D3");
-    } else if (_mone == 2) {
-      setBackground("#FF8C00");
-    } else if (_mone >= 3) {
-      setBackground("#B22222");
+    switch (_mone) {
+      case 1:
+        setBackground("#D3D3D3");
+        break;
+      case 2:
+        setBackground("#FF8C00");
+        break;
+      default:
+        setBackground("#B22222");
+        break;
     }
   };
   useEffect(() => {
@@ -60,7 +48,7 @@ const LittleWeather = (props) => {
           272.15
         ).toFixed(2)
       );
-    weather && changeImg();
+    weather && changeImg(weather, setImage);
     weather && checkMone();
   }, [weather, temp]);
 
@@ -76,7 +64,6 @@ const LittleWeather = (props) => {
         border: 3,
         borderRadius: 15,
         backgroundColor: { background },
-       
       }}
     >
       <Box
@@ -86,12 +73,13 @@ const LittleWeather = (props) => {
           alignItems: "center",
           textAlign: "center",
           margin: "auto",
+          width:"100%",
+         
         }}
       >
-        <CardContent cols={6} sx={{ flex: "1 0 auto" }}>
-          <h3>{props.day}</h3>
+        <CardContent  sx={{ flex: "1 0 auto" }}>
+          <Typography variant="h5">{props.day}</Typography>
           <CardMedia
-            cols={3}
             component="img"
             sx={{
               width: 50,

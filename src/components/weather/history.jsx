@@ -11,7 +11,7 @@ import {
   Typography,
 } from "@mui/material";
 import React from "react";
-import { Context } from "../contextProvider";
+import { Context } from "../../contextProvider";
 import { useContext } from "react";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
@@ -20,8 +20,8 @@ const History = () => {
   const { lastSearch, setLastSearch, setCity } = useContext(Context);
   const nav = useNavigate();
 
-  const moveToMain = () => {
-    setCity("Jerusalem");
+  const moveToMain = (_city) => {
+    setCity(_city);
     nav("/home");
   };
 
@@ -30,13 +30,11 @@ const History = () => {
   };
 
   const deleteChoice = (_index) => {
-    setLastSearch(lastSearch.splice(_index - 1));
+    setLastSearch(lastSearch.splice(_index + 1));
     setCity("Jerusalem");
   };
 
-  useEffect(() => {
-    console.log(lastSearch);
-  }, [lastSearch]);
+  useEffect(() => {}, [lastSearch]);
 
   return (
     <Container component="main">
@@ -74,25 +72,25 @@ const History = () => {
                     <TableCell align="center">{row.country}</TableCell>
                     <TableCell align="center">{row.continent}</TableCell>
                     <TableCell align="center">
-                      {row.city == "Jerusalem" ? (
+                      {i == 0 ? (
                         <Button
                           variant="text"
                           sx={{ color: "black" }}
                           onClick={() => {
-                            moveToMain();
+                            cancelChoice();
                           }}
                         >
-                          הפוך לראשי
+                          ביטול בחירה
                         </Button>
                       ) : (
                         <Button
                           variant="text"
                           color="error"
                           onClick={() => {
-                            cancelChoice();
+                            moveToMain(row.city);
                           }}
                         >
-                          ביטול בחירה
+                          הפוך לראשי
                         </Button>
                       )}
                       |

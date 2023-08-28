@@ -8,9 +8,6 @@ const ContextProvider = ({ children }) => {
   const [allCities, setAllCities] = useState({});
   const [weather, setWeather] = useState(null);
   const [lastSearch, setLastSearch] = useState([]);
-  const [allSoldiers, setAllSoldiers] = useState([]);
-  const [chooseSoldiers, setChooseSoldiers] = useState([]);
-  const [open, setOpen] = React.useState(false);
   return (
     <Context.Provider
       value={{
@@ -24,12 +21,6 @@ const ContextProvider = ({ children }) => {
         setLastSearch,
         city,
         setCity,
-        allSoldiers,
-        setAllSoldiers,
-        chooseSoldiers,
-        setChooseSoldiers,
-        open,
-        setOpen,
       }}
     >
       {children}
