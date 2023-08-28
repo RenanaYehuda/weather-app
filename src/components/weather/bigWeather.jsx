@@ -27,7 +27,7 @@ const BigWeather = () => {
         display: "flex",
         flexDirection: "column",
         width: "60%",
-        height: "60vh",
+        height: "70vh",
         alignItems: "center",
         justifyContent: "center",
       }}
@@ -35,8 +35,8 @@ const BigWeather = () => {
       <Card
         sx={{
           width: "100%",
-          height: "100%",
-          marginTop: 8,
+          height: "70%",
+          marginTop: 4,
           display: "flex",
           border: 3,
           borderRadius: 25,
