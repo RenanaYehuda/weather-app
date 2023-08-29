@@ -21,16 +21,16 @@ const ButtonsMador = (props) => {
     setChooseSoldiers([]);
   };
   const removeAll = () => {
-    if (chooseSoldiers.length == allSoldiers.length) {
-      setChooseSoldiers([]);
-      setAllSoldiers([]);
-    } else {
-      const result = allSoldiers.filter(
-        (soldier) => !chooseSoldiers.includes(soldier)
-      );
-      setChooseSoldiers([]);
-      setAllSoldiers(result);
-    }
+    const userInList = chooseSoldiers.filter(
+      (soldier) =>
+        soldier.User_Name != user.User_Name &&
+        soldier.Mispar_Ishi != user.Mispar_Ishi
+    );
+    const result = allSoldiers.filter(
+      (soldier) => !userInList.includes(soldier)
+    );
+    setChooseSoldiers([]);
+    setAllSoldiers(result);
   };
 
   const saveAll = async () => {
@@ -38,7 +38,6 @@ const ButtonsMador = (props) => {
       let data = { newSoldiers: [...allSoldiers] };
       let resp = await apiUpdateSoldiers(user, data);
       if (resp) {
-        setAllSoldiers(chooseSoldiers);
         setChooseSoldiers([]);
         setOpen(false);
       }

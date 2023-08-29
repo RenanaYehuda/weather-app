@@ -7,11 +7,11 @@ import ButtonsMador from "./buttonsMador";
 import { useState } from "react";
 
 const DialogMador = (props) => {
-  const { open, setOpen, handleClose, allSoldiers, setAllSoldiers } = props;
-  const [chooseSoldiers, setChooseSoldiers] = useState([]);
+  const { open, setOpen, onClose, allSoldiers, setAllSoldiers, chooseSoldiers, setChooseSoldiers} = props;
+  
 
   return (
-    <Dialog open={open} onClose={handleClose} maxWidth="lg" fullWidth>
+    <Dialog open={open} onClose={onClose} maxWidth="lg" fullWidth>
       <Box
         sx={{ maxHeight: "100vh", overflow: "hidden", boxSizing: "border-box" }}
       >

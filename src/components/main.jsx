@@ -26,8 +26,8 @@ const Main = () => {
     const item = JSON.parse(localStorage.getItem("user"));
 
     item ? login(item) : setNav("login");
-  }, []);
-  return <> {nav == "home" ? <Home /> : <Login />}</>;
+  }, [nav]);
+  return <> {nav == "home" ? <Home /> : <Login setNav={setNav}/>}</>;
 };
 
 export default Main;

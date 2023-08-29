@@ -12,6 +12,7 @@ const Mador = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [open, setOpen] = React.useState(false);
   const [allSoldiers, setAllSoldiers] = useState([]);
+  const [chooseSoldiers, setChooseSoldiers] = useState([]);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -65,6 +66,8 @@ const Mador = () => {
             onClose={handleClose}
             allSoldiers={allSoldiers}
             setAllSoldiers={setAllSoldiers}
+            chooseSoldiers={chooseSoldiers}
+            setChooseSoldiers={setChooseSoldiers}
           />
         </Box>
       )}

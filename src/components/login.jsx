@@ -5,13 +5,11 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
 import { Context } from "../contextProvider";
 import { apiLogin } from "../apiRequest";
 
-const Login = () => {
+const Login = ({setNav}) => {
   const { setUser } = useContext(Context);
-  const nav = useNavigate();
   const {
     register,
     handleSubmit,
@@ -30,7 +28,7 @@ const Login = () => {
         localStorage.setItem("user", JSON.stringify(bodyData));
         setUser(resp.data);
         alert("התחברת בהצלחה(:");
-        nav("/home");
+        setNav("home");
       }
     } catch (err) {
       alert("שם משתמש או הסיסמה שגויים");

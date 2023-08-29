@@ -1,5 +1,6 @@
 import axios from "axios";
 const API_URL = "http://localhost:3001";
+const item = JSON.parse(localStorage.getItem("user"));
 
 export const apiLogin = async (bodyData) => {
   let url = API_URL + "/login";
@@ -26,8 +27,8 @@ export const apiGetCities = async (user) => {
       url: url,
       method: "get",
       headers: {
-        user_name: user ? user.User_Name : null,
-        user_mispar_ishi: user ? user.Mispar_Ishi : null,
+        user_name: item ? item.userName : null,
+        user_mispar_ishi: item ? item.password : null,
       },
     });
     if (resp.status == 200) {
@@ -41,8 +42,8 @@ export const apiGetCity = async (user, city) => {
   try {
     let resp = await axios.get(url, {
       headers: {
-        user_name: user ? user.User_Name : null,
-        user_mispar_ishi: user ? user.Mispar_Ishi : null,
+        user_name: item ? item.userName : null,
+        user_mispar_ishi: item ? item.password : null,
       },
     });
     if (resp.status == 200) {
@@ -56,8 +57,8 @@ export const apiGetSoldiers = async (user) => {
   try {
     let resp = await axios.get(url, {
       headers: {
-        user_name: user ? user.User_Name : null,
-        user_mispar_ishi: user ? user.Mispar_Ishi : null,
+        user_name: item ? item.userName : null,
+        user_mispar_ishi: item ? item.password : null,
       },
     });
     if (resp.status === 200) {
@@ -74,8 +75,8 @@ export const apiUpdateSoldiers = async (user, data) => {
       method: "put",
       data: data,
       headers: {
-        user_name: user ? user.User_Name : null,
-        user_mispar_ishi: user ? user.Mispar_Ishi : null,
+        user_name: item ? item.userName : null,
+        user_mispar_ishi: item ? item.password : null,
       },
     });
     if (resp.status == 200) {

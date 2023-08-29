@@ -27,6 +27,7 @@ const Home = () => {
   ];
 
   const [searchClicked, setSearchClicked] = useState("");
+  const [cityTemp, setCityTemp] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const {
     user,
@@ -43,9 +44,8 @@ const Home = () => {
   const { handleSubmit } = useForm();
 
   const onSubForm = async () => {
-    setSearchClicked(true);
+    setCity(cityTemp);
     createLastSearch();
-    getCity();
   };
 
   const getCity = async () => {
@@ -97,7 +97,7 @@ const Home = () => {
 
   const createLastSearch = () => {
     let searchs = lastSearch;
-    let detailesCity = allCities.filter((item) => item.city === city);
+    let detailesCity = allCities.filter((item) => item.city === cityTemp);
     if (detailesCity) {
       detailesCity = detailesCity[0];
       if (searchs.length < 5) {
@@ -115,8 +115,10 @@ const Home = () => {
       try {
         let resp = await apiGetCities(user);
         if (resp) {
-          setAllCities(resp.data);
-          setIsLoading(true);
+          await setAllCities(resp.data);
+          if (allCities != {}) {
+            setIsLoading(true);
+          }
         }
       } catch (err) {}
     };
@@ -128,6 +130,9 @@ const Home = () => {
     getCity();
   }, []);
 
+  useEffect(() => {
+    getCity();
+  }, [city]);
   return (
     <Container component="main" maxWidth="xl">
       {isLoading ? (
@@ -161,9 +166,7 @@ const Home = () => {
                 </IconButton>
                 <NativeSelect
                   onChange={(e) => {
-                    if (searchClicked) {
-                      setCity(e.target.value);
-                    }
+                    setCityTemp(e.target.value);
                   }}
                   defaultValue={city}
                   inputProps={{
@@ -186,7 +189,14 @@ const Home = () => {
               <BigWeather />
               <Stack
                 direction={"row"}
-                sx={{ position: "absolute", bottom: "1%" , width:"80%", display:"flex", justifyContent:"center", alignItems:"center"}}
+                sx={{
+                  position: "absolute",
+                  bottom: "1%",
+                  width: "80%",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
               >
                 {days.map((item, i) => (
                   <LittleWeather key={i} k={i} day={item} />
