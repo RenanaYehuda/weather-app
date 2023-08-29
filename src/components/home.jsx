@@ -26,7 +26,6 @@ const Home = () => {
     "בעוד 5 ימים",
   ];
 
-  const [searchClicked, setSearchClicked] = useState("");
   const [cityTemp, setCityTemp] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const {
