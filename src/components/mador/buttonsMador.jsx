@@ -36,7 +36,7 @@ const ButtonsMador = (props) => {
   const saveAll = async () => {
     try {
       let data = { newSoldiers: [...allSoldiers] };
-      let resp = await apiUpdateSoldiers(user, data);
+      let resp = await apiUpdateSoldiers(data);
       if (resp) {
         setChooseSoldiers([]);
         setOpen(false);

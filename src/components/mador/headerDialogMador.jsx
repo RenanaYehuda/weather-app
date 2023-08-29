@@ -3,7 +3,6 @@ import React from "react";
 import profileArrows from "../../arrows.svg";
 import { useState } from "react";
 import { useEffect } from "react";
-import moment from "moment/moment";
 
 const HeaderDialogMador = () => {
   const [date, setDate] = useState("");

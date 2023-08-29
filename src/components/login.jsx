@@ -8,7 +8,7 @@ import { useForm } from "react-hook-form";
 import { Context } from "../contextProvider";
 import { apiLogin } from "../apiRequest";
 
-const Login = ({setNav}) => {
+const Login = ({ setNav }) => {
   const { setUser } = useContext(Context);
   const {
     register,

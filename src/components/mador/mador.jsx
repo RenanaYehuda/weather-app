@@ -8,7 +8,6 @@ import DialogMador from "./dialogMador";
 import { apiGetSoldiers } from "../../apiRequest";
 
 const Mador = () => {
-  const { user } = useContext(Context);
   const [isLoading, setIsLoading] = useState(false);
   const [open, setOpen] = React.useState(false);
   const [allSoldiers, setAllSoldiers] = useState([]);
@@ -25,7 +24,7 @@ const Mador = () => {
   useEffect(() => {
     const getSoldiers = async () => {
       try {
-        let resp = await apiGetSoldiers(user);
+        let resp = await apiGetSoldiers();
         if (resp.status === 200) {
           setAllSoldiers(resp.data);
           setIsLoading(true);

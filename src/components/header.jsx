@@ -6,21 +6,22 @@ import { Context } from "../contextProvider";
 
 const Header = () => {
   const { lastSearch } = useContext(Context);
+  const USER = process.env.REACT_APP_USER;
 
   const nav = useNavigate();
 
   const logOut = () => {
-    localStorage.removeItem("user");
+    localStorage.removeItem(USER);
     nav("/login");
   };
 
   const main = () => {
-    if (localStorage.getItem("user") !== null) {
+    if (localStorage.getItem(USER) !== null) {
       nav("/home");
     } else alert("עליך להתחבר למערכת");
   };
   const mador = () => {
-    if (localStorage.getItem("user") !== null) {
+    if (localStorage.getItem(USER) !== null) {
       nav("/mador");
     } else alert("עליך להתחבר למערכת");
   };
@@ -70,7 +71,7 @@ const Header = () => {
               color: "white",
               fontSize: "25px",
               pointerEvents:
-                localStorage.getItem("user") == null ? "none" : "auto",
+                localStorage.getItem(USER) == null ? "none" : "auto",
             }}
             onClick={() => logOut()}
           >

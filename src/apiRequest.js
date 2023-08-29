@@ -1,6 +1,7 @@
 import axios from "axios";
-const API_URL = "http://localhost:3001";
-const item = JSON.parse(localStorage.getItem("user"));
+
+const API_URL = process.env.REACT_APP_API_URL;
+const item = JSON.parse(localStorage.getItem(process.env.REACT_APP_USER));
 
 export const apiLogin = async (bodyData) => {
   let url = API_URL + "/login";
@@ -20,7 +21,7 @@ export const apiLogin = async (bodyData) => {
   } catch (err) {}
 };
 
-export const apiGetCities = async (user) => {
+export const apiGetCities = async () => {
   let url = API_URL + "/getAllCities";
   try {
     let resp = await axios({
@@ -37,7 +38,7 @@ export const apiGetCities = async (user) => {
   } catch (err) {}
 };
 
-export const apiGetCity = async (user, city) => {
+export const apiGetCity = async (city) => {
   let url = API_URL + `/cities/${city}`;
   try {
     let resp = await axios.get(url, {
@@ -52,7 +53,7 @@ export const apiGetCity = async (user, city) => {
   } catch (err) {}
 };
 
-export const apiGetSoldiers = async (user) => {
+export const apiGetSoldiers = async () => {
   let url = API_URL + "/getAllSoldiers";
   try {
     let resp = await axios.get(url, {
@@ -67,7 +68,7 @@ export const apiGetSoldiers = async (user) => {
   } catch (err) {}
 };
 
-export const apiUpdateSoldiers = async (user, data) => {
+export const apiUpdateSoldiers = async (data) => {
   let url = API_URL + "/updateMadorSoldiers";
   try {
     let resp = await axios({

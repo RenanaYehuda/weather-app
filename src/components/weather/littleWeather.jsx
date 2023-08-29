@@ -12,31 +12,32 @@ const LittleWeather = (props) => {
   const checkMone = () => {
     let feel = weather.daily[props.k + 1].feels_like;
     let mone = 0;
-    switch (true) {
-      case feel.day - feel.eve > 1:
-        mone++;
-      case feel.day - feel.morn > 1:
-        mone++;
-      case feel.day - feel.night > 1:
-        mone++;
-      default:
-        break;
+    if (feel.day - feel.eve > 1) {
+      mone++;
+    }
+    if (feel.day - feel.morn > 1) {
+      mone++;
+    }
+    if (feel.day - feel.night > 1) {
+      mone++;
     }
     changeBackground(mone);
   };
 
   const changeBackground = (_mone) => {
+    let back = "";
     switch (_mone) {
       case 1:
-        setBackground("#D3D3D3");
+        back = "#D3D3D3";
         break;
       case 2:
-        setBackground("#FF8C00");
+        back = "#FF8C00";
         break;
       default:
-        setBackground("#B22222");
+        back = "#B22222";
         break;
     }
+    setBackground(back);
   };
   useEffect(() => {
     weather &&
@@ -55,8 +56,15 @@ const LittleWeather = (props) => {
   return (
     <Card
       sx={{
-        width: 250,
-        height: 200,
+        "@media (min-width:600px)": {
+          width: "17%",
+        },
+        "@media (min-width:1800px)": {
+          width: "15%",
+        },
+        
+        // minHeight:"13%",
+        // minHeight: 70,
         marginTop: 4,
         marginRight: 2,
         marginBottom: 8,
@@ -73,11 +81,10 @@ const LittleWeather = (props) => {
           alignItems: "center",
           textAlign: "center",
           margin: "auto",
-          width:"100%",
-         
+          width: "100%",
         }}
       >
-        <CardContent  sx={{ flex: "1 0 auto" }}>
+        <CardContent sx={{ flex: "1 0 auto" }}>
           <Typography variant="h5">{props.day}</Typography>
           <CardMedia
             component="img"

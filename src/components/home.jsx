@@ -49,7 +49,7 @@ const Home = () => {
 
   const getCity = async () => {
     try {
-      let resp = await apiGetCity(user, city);
+      let resp = await apiGetCity(city);
       if (resp) {
         getWeather(resp.data);
       }
@@ -58,7 +58,7 @@ const Home = () => {
 
   const getWeather = async (lat_lon) => {
     let resp;
-    let url = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat_lon.latitude}&lon=${lat_lon.longitude}&appid=6f11fa9760902e1597265ad205f05d2c`;
+    let url = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat_lon.latitude}&lon=${lat_lon.longitude}&appid=${process.env.REACT_APP_KEY_API}`;
     try {
       //   console.log(url);
       //   try {
@@ -99,7 +99,7 @@ const Home = () => {
     let detailesCity = allCities.filter((item) => item.city === cityTemp);
     if (detailesCity) {
       detailesCity = detailesCity[0];
-      if (searchs.length < 5) {
+      if (searchs.length < process.env.REACT_APP_MAX_SEARCH) {
         searchs.unshift(detailesCity);
       } else {
         searchs.pop();
@@ -112,7 +112,7 @@ const Home = () => {
   useEffect(() => {
     const getAllCities = async () => {
       try {
-        let resp = await apiGetCities(user);
+        let resp = await apiGetCities();
         if (resp) {
           await setAllCities(resp.data);
           if (allCities != {}) {
@@ -190,11 +190,16 @@ const Home = () => {
                 direction={"row"}
                 sx={{
                   position: "absolute",
-                  bottom: "1%",
-                  width: "80%",
+                  minWidth: "80%",
                   display: "flex",
                   justifyContent: "center",
                   alignItems: "center",
+                  "@media (min-width:600px)": {
+                    bottom: "0%",
+                  },
+                  "@media (min-width:1800px)": {
+                    bottom: "5%",
+                  },
                 }}
               >
                 {days.map((item, i) => (

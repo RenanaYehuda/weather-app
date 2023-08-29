@@ -28,18 +28,25 @@ const Soldiers = (props) => {
 
   const groupByCategory = () => {
     let groupByCategoryMap = [];
-    if (selected === options[0]) {
-      groupByCategoryMap = allSoldiers.groupBy((soldier) => soldier.City);
-    } else if (selected === options[1]) {
-      groupByCategoryMap = allSoldiers.groupBy(
-        (soldier) => soldier.City_Location
-      );
-    } else if (selected === options[2]) {
-      groupByCategoryMap = allSoldiers.groupBy((soldier) => soldier.Gender);
-    } else {
-      groupByCategoryMap = allSoldiers.groupBy(
-        (soldier) => soldier.Role + ", " + soldier.Rank
-      );
+    switch (selected) {
+      case options[0]:
+        groupByCategoryMap = allSoldiers.groupBy((soldier) => soldier.City);
+        break;
+      case options[1]:
+        groupByCategoryMap = allSoldiers.groupBy(
+          (soldier) => soldier.City_Location
+        );
+        break;
+      case options[2]:
+        groupByCategoryMap = allSoldiers.groupBy((soldier) => soldier.Gender);
+        break;
+      case options[3]:
+        groupByCategoryMap = allSoldiers.groupBy(
+          (soldier) => soldier.Role + ", " + soldier.Rank
+        );
+        break;
+      default:
+        break;
     }
     setGroups(Object.entries(groupByCategoryMap));
   };

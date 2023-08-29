@@ -4,11 +4,17 @@ import HeaderDialogMador from "./headerDialogMador";
 import AddSoldier from "./soldiers/addSoldier";
 import Soldiers from "./soldiers/soldiers";
 import ButtonsMador from "./buttonsMador";
-import { useState } from "react";
 
 const DialogMador = (props) => {
-  const { open, setOpen, onClose, allSoldiers, setAllSoldiers, chooseSoldiers, setChooseSoldiers} = props;
-  
+  const {
+    open,
+    setOpen,
+    onClose,
+    allSoldiers,
+    setAllSoldiers,
+    chooseSoldiers,
+    setChooseSoldiers,
+  } = props;
 
   return (
     <Dialog open={open} onClose={onClose} maxWidth="lg" fullWidth>

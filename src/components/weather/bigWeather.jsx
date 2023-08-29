@@ -26,17 +26,20 @@ const BigWeather = () => {
       sx={{
         display: "flex",
         flexDirection: "column",
-        width: "60%",
+        minWidth: "60%",
         height: "70vh",
         alignItems: "center",
         justifyContent: "center",
+        // marginBottom:30
+
       }}
     >
       <Card
         sx={{
+          // marginBottom: 12,
           width: "100%",
           height: "70%",
-          marginTop: 4,
+          // marginTop: 4,
           display: "flex",
           border: 3,
           borderRadius: 25,
@@ -47,7 +50,7 @@ const BigWeather = () => {
         <Box sx={{ display: "flex", flexDirection: "column", width: "60%" }}>
           <CardContent
             cols={6}
-            sx={{ flex: "1 0 auto", marginTop: 24, marginRight: 16 }}
+            sx={{ flex: "1 0 auto", marginTop: 19, marginRight: 16 }}
           >
             <Typography sx={{ font: "Poppins-Bold", fontSize: "28pt" }}>
               היום

@@ -1,14 +1,11 @@
 import React, { useContext, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import { Context } from "../contextProvider";
-import axios from "axios";
 import Login from "./login";
 import Home from "./home";
 import { useState } from "react";
 import { apiLogin } from "../apiRequest";
 
 const Main = () => {
-  const v = useNavigate();
   const { setUser } = useContext(Context);
   const [nav, setNav] = useState("");
 
@@ -23,11 +20,11 @@ const Main = () => {
   };
 
   useEffect(() => {
-    const item = JSON.parse(localStorage.getItem("user"));
+    const item = JSON.parse(localStorage.getItem(process.env.REACT_APP_USER));
 
     item ? login(item) : setNav("login");
   }, [nav]);
-  return <> {nav == "home" ? <Home /> : <Login setNav={setNav}/>}</>;
+  return <> {nav == "home" ? <Home /> : <Login setNav={setNav} />}</>;
 };
 
 export default Main;
