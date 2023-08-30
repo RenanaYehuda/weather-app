@@ -195,7 +195,7 @@ const Home = () => {
                   justifyContent: "center",
                   alignItems: "center",
                   "@media (min-width:600px)": {
-                    bottom: "0%",
+                    bottom: "-2%",
                   },
                   "@media (min-width:1800px)": {
                     bottom: "5%",

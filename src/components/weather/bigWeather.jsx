@@ -30,16 +30,12 @@ const BigWeather = () => {
         height: "70vh",
         alignItems: "center",
         justifyContent: "center",
-        // marginBottom:30
-
       }}
     >
       <Card
         sx={{
-          // marginBottom: 12,
           width: "100%",
           height: "70%",
-          // marginTop: 4,
           display: "flex",
           border: 3,
           borderRadius: 25,

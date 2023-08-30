@@ -56,15 +56,9 @@ const LittleWeather = (props) => {
   return (
     <Card
       sx={{
-        "@media (min-width:600px)": {
-          width: "17%",
-        },
         "@media (min-width:1800px)": {
           width: "15%",
         },
-        
-        // minHeight:"13%",
-        // minHeight: 70,
         marginTop: 4,
         marginRight: 2,
         marginBottom: 8,

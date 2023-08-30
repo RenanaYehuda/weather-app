@@ -64,7 +64,16 @@ const Soldiers = (props) => {
   return (
     <Container
       component="main"
-      sx={{ height: 450, overflow: "auto", marginBottom: "8px" }}
+      sx={{
+        "@media (min-width:600px)": {
+          height: 250,
+        },
+        "@media (min-width:1800px)": {
+          height: 450,
+        },
+        overflow: "auto",
+        marginBottom: "8px",
+      }}
     >
       <FormControl
         variant="standard"
