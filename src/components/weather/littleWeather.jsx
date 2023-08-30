@@ -40,8 +40,8 @@ const LittleWeather = (props) => {
     setBackground(back);
   };
   useEffect(() => {
-    weather &&
-      setTemp(
+    if (weather) {
+       setTemp(
         (
           (weather.daily[props.k + 1].temp.max +
             weather.daily[props.k + 1].temp.eve) /
@@ -49,8 +49,9 @@ const LittleWeather = (props) => {
           272.15
         ).toFixed(2)
       );
-    weather && changeImg(weather, setImage);
-    weather && checkMone();
+      changeImg(weather, setImage);
+      checkMone();
+    }
   }, [weather, temp]);
 
   return (

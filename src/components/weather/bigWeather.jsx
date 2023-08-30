@@ -10,15 +10,16 @@ const BigWeather = () => {
   const [image, setImage] = useState("");
 
   useEffect(() => {
-    weather &&
-      setTemp(
+    if (weather) {
+       setTemp(
         (
           (weather.daily[0].temp.max + weather.daily[0].temp.eve) / 2 -
           272.15
         ).toFixed(2)
       );
-    weather && setDescription(weather.daily[0].weather[0].description);
-    weather && changeImg(weather, setImage);
+      setDescription(weather.daily[0].weather[0].description);
+      changeImg(weather, setImage);
+    }
   }, [weather, temp, description]);
 
   return (
